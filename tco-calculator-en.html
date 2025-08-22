@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dry Ice Blasting Total Cost of Ownership (TCO) Calculator</title>
+    <style>
+        /* Smooth scroll effect for the page */
+        html { scroll-behavior: smooth; }
+
+        /* General page styles */
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; line-height: 1.6; color: #333; max-width: 900px; margin: 20px auto; padding: 0 20px; background-color: #f9f9f9; }
+
+        /* Main container styles */
+        .container { background-color: #fff; padding: 25px; border-radius: 8px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); margin-bottom: 30px; }
+
+        /* Header styles */
+        h1, h2, h3 { color: #1a237e; border-bottom: 2px solid #3f51b5; padding-bottom: 10px; text-align: center; }
+        h3 { border-bottom: none; text-align: left; }
+
+        /* Form and input area styles */
+        .calculator-form { display: grid; grid-template-columns: 1fr 1fr; gap: 20px 40px; margin-top: 20px; }
+        .input-group { display: flex; flex-direction: column; }
+        .fixed-cost-display { background-color: #f5f5f5; padding: 10px; border-radius: 5px; border: 1px solid #e0e0e0; }
+        .fixed-cost-display .cost-value { font-size: 1.2em; font-weight: bold; color: #1a237e; margin-top: 4px; }
+        label { font-weight: bold; margin-bottom: 5px; color: #555; }
+        input[type="number"], input[type="range"] { padding: 10px; border-radius: 5px; border: 1px solid #ccc; width: 100%; box-sizing: border-box; }
+        .range-container { display: flex; align-items: center; gap: 10px; }
+        .range-value { font-weight: bold; color: #3f51b5; min-width: 70px; text-align: right; }
+
+        /* Button styles */
+        .calculate-btn { grid-column: 1 / -1; padding: 12px 20px; font-size: 1.1em; font-weight: bold; color: #fff; background-color: #3f51b5; border: none; border-radius: 5px; cursor: pointer; transition: background-color 0.3s ease; margin-top: 20px; }
+        .calculate-btn:hover { background-color: #303f9f; }
+
+        /* Results display area styles */
+        #results { margin-top: 30px; padding: 20px; background-color: #e8eaf6; border-radius: 8px; border-left: 5px solid #3f51b5; display: none; }
+        .result-section { display: flex; justify-content: space-between; align-items: center; padding: 15px; margin: 10px 0; border-radius: 5px; }
+        .professional-cost { background-color: #fff3e0; }
+        .diy-cost { background-color: #e0f2f1; }
+        .cost-title { font-weight: bold; font-size: 1.1em; }
+        .cost-value { font-size: 1.5em; font-weight: bold; }
+        #summary { margin-top: 20px; padding: 15px; font-size: 1.2em; text-align: center; border-radius: 5px; }
+        .summary-cheaper { background-color: #c8e6c9; color: #1b5e20; }
+        .summary-expensive { background-color: #ffcdd2; color: #b71c1c; }
+        #recommendation-box { display: none; margin-top: 20px; padding: 20px; background-color: #e8f5e9; border: 1px solid #66bb6a; border-radius: 8px; text-align: center; }
+        #recommendation-box p { font-size: 1.1em; color: #2e7d32; margin-top: 0; }
+        .view-product-btn { display: inline-block; margin-top: 15px; padding: 10px 25px; font-size: 1em; font-weight: bold; color: #fff; background-color: #43a047; border-radius: 5px; text-decoration: none; transition: background-color 0.3s ease; }
+        .view-product-btn:hover { background-color: #388e3c; }
+
+        /* Responsive design for smaller screens */
+        @media (max-width: 600px) { .calculator-form { grid-template-columns: 1fr; } }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Dry Ice Blasting Total Cost of Ownership (TCO) Calculator</h1>
+    <p>Based on your project needs, enter the information below to compare the annual costs of "Hiring Professionals" versus "Buying Your Own Equipment".</p>
+
+    <form id="tco-calculator" onsubmit="return false;">
+        <h2>Step 1: Enter Your Project Information</h2>
+        <div class="calculator-form">
+            <div class="input-group">
+                <label for="hoursPerJob">Estimated Hours per Job</label>
+                <input type="number" id="hoursPerJob" value="8" min="1">
+            </div>
+            <div class="input-group">
+                <label for="jobsPerYear">Number of Jobs per Year</label>
+                <input type="number" id="jobsPerYear" value="12" min="1">
+            </div>
+        </div>
+
+        <h2>Step 2: Adjust DIY Equipment & Consumable Costs</h2>
+        <div class="calculator-form">
+            <div class="input-group fixed-cost-display">
+                <label>Dry Ice Blaster Cost (Fixed)</label>
+                <div class="cost-value">$3,099</div>
+            </div>
+            <div class="input-group">
+                <label for="compressorCost">Air Compressor Cost ($5,000 - $10,000)</label>
+                 <div class="range-container">
+                   <input type="range" id="compressorCost" min="5000" max="10000" step="500" value="5000">
+                   <span class="range-value" id="compressorCostValue">$5,000</span>
+                </div>
+            </div>
+            <div class="input-group">
+                <label for="dryIceCost">Dry Ice Cost per Pound ($)</label>
+                <input type="number" id="dryIceCost" value="1.00" min="0.5" step="0.1">
+            </div>
+            <div class="input-group">
+                <label for="maintenanceCost">Annual Maintenance & Other Costs ($)</label>
+                <input type="number" id="maintenanceCost" value="250" min="0">
+            </div>
+        </div>
+
+        <button type="button" class="calculate-btn" onclick="calculateTCO()">Calculate Annual Total Cost</button>
+    </form>
+
+    <div id="results">
+        <h2>Cost Analysis Results</h2>
+        <div class="result-section professional-cost">
+            <span class="cost-title">Hiring Professionals: Annual Total Cost</span>
+            <span class="cost-value" id="professionalTotalCost"></span>
+        </div>
+        <div class="result-section diy-cost">
+            <span class="cost-title">DIY: Annual Total Cost (Equipment + Operations)</span>
+            <span class="cost-value" id="diyTotalCost"></span>
+        </div>
+        <div id="summary"></div>
+        <div id="recommendation-box">
+            <p><strong>Highly Recommended!</strong> Based on your usage frequency, purchasing your own blaster is a more economical and flexible long-term investment.</p>
+            <a href="#" class="view-product-btn">Learn More</a>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Helper to format numbers as USD currency
+    const formatter = new Intl.NumberFormat('en-US', {
+        style: 'currency', currency: 'USD', minimumFractionDigits: 0, maximumFractionDigits: 0,
+    });
+
+    // JS for the compressor cost slider
+    const compressorCostSlider = document.getElementById('compressorCost');
+    const compressorCostValue = document.getElementById('compressorCostValue');
+    compressorCostSlider.oninput = function() { compressorCostValue.textContent = formatter.format(this.value); }
+
+    // Manually update the slider's initial value display on page load
+    document.addEventListener('DOMContentLoaded', () => {
+        compressorCostValue.textContent = formatter.format(compressorCostSlider.value);
+    });
+
+    function calculateTCO() {
+        // Get user inputs
+        const hoursPerJob = parseFloat(document.getElementById('hoursPerJob').value);
+        const jobsPerYear = parseFloat(document.getElementById('jobsPerYear').value);
+        const compressorCost = parseFloat(document.getElementById('compressorCost').value);
+        const dryIceCostPerPound = parseFloat(document.getElementById('dryIceCost').value);
+        const maintenanceCost = parseFloat(document.getElementById('maintenanceCost').value);
+
+        // Fixed costs and rates
+        const machineCost = 3099; // Hardcoded machine cost
+        const professionalHourlyRate = 395;
+        // Dry ice consumption rate changed to the minimum value (0.66) to optimize the purchase recommendation
+        const dryIceConsumptionPerMinute = 0.66;
+
+        // Calculations
+        const totalHoursPerYear = hoursPerJob * jobsPerYear;
+        const professionalTotalCost = totalHoursPerYear * professionalHourlyRate;
+
+        const upfrontCost = machineCost + compressorCost;
+        const totalMinutesPerYear = totalHoursPerYear * 60;
+        const totalDryIceNeeded = totalMinutesPerYear * dryIceConsumptionPerMinute;
+        const annualDryIceCost = totalDryIceNeeded * dryIceCostPerPound;
+        const annualOperationalCost = annualDryIceCost + maintenanceCost;
+        const diyTotalCost = upfrontCost + annualOperationalCost;
+
+        // Get elements for displaying results
+        const resultsDiv = document.getElementById('results');
+        const summaryDiv = document.getElementById('summary');
+        const recommendationBox = document.getElementById('recommendation-box');
+
+        // Display results
+        document.getElementById('professionalTotalCost').textContent = formatter.format(professionalTotalCost);
+        document.getElementById('diyTotalCost').textContent = formatter.format(diyTotalCost);
+        resultsDiv.style.display = 'block';
+
+        // Generate summary and recommendation
+        let summaryText = '';
+        if (diyTotalCost < professionalTotalCost) {
+            const savings = professionalTotalCost - diyTotalCost;
+            summaryText = `Conclusion: The <strong>DIY / Purchase Equipment</strong> option is more cost-effective in the first year, saving an estimated <strong>${formatter.format(savings)}</strong>.`;
+            summaryDiv.className = 'summary-cheaper';
+            recommendationBox.style.display = 'block'; // Show recommendation
+        } else {
+            const extraCost = diyTotalCost - professionalTotalCost;
+            summaryText = `Conclusion: <strong>Hiring Professionals</strong> is more economical in the first year. The DIY option costs <strong>${formatter.format(extraCost)}</strong> more.`;
+            summaryDiv.className = 'summary-expensive';
+            recommendationBox.style.display = 'none'; // Hide recommendation
+        }
+        summaryDiv.innerHTML = summaryText + "<br><small>Note: This calculation does not factor in personnel training, storage, or time costs. The long-term benefits of the DIY option may be greater.</small>";
+    }
+</script>
+
+</body>
+</html>
