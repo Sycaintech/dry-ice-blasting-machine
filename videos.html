@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Video Gallery - Dry Ice Blasting in Action</title>
+    <link rel="icon" href="favicon.png" type="image/png">
+    <meta name="description" content="Watch our Dry Ice Blasting machines in action. See satisfying cleaning videos from automotive, industrial, and manufacturing applications.">
+    <meta name="robots" content="index, follow">
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "CollectionPage",
+      "name": "Video Gallery - Dry Ice Blasting in Action",
+      "description": "Watch our Dry Ice Blasting machines in action. See satisfying cleaning videos from automotive, industrial, and manufacturing applications.",
+      "url": "https://www.dry-ice-blasting-machine.com/video-gallery.html",
+      "publisher": {
+        "@type": "Organization",
+        "name": "Dry Ice Blasting Machine",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://www.dry-ice-blasting-machine.com/favicon.png"
+        }
+      },
+      "mainEntity": {
+        "@type": "ItemList",
+        "name": "Dry Ice Blasting Demonstration Videos",
+        "description": "A curated list of videos showing the AI30 dry ice blaster in various real-world applications."
+      }
+    }
+    </script>
+
+    <style>
+        /* =================================== */
+        /* 1. Core Styles             */
+        /* =================================== */
+        :root {
+            --primary-text: #1d1d1f;
+            --secondary-text: #86868b;
+            --accent-color: #781a21;
+            --background-light: #f5f5f7;
+            --background-white: #ffffff;
+            --border-light: #d2d2d7;
+            --shadow-light: rgba(0, 0, 0, 0.04);
+            --shadow-medium: rgba(0, 0, 0, 0.08);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', Roboto, sans-serif;
+            font-size: 17px;
+            line-height: 1.5;
+            color: var(--primary-text);
+            background: var(--background-light);
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1440px;
+            margin: 0 auto;
+            padding: 0 32px;
+        }
+
+        /* =================================== */
+        /* 2. Simplified Navigation Bar      */
+        /* =================================== */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(3, 3, 3, 0.8);
+            backdrop-filter: saturate(180%) blur(20px);
+            -webkit-backdrop-filter: saturate(180%) blur(20px);
+            z-index: 1000;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 80px;
+        }
+
+        .logo {
+            font-size: 21px;
+            font-weight: 600;
+            color: white;
+            letter-spacing: -0.02em;
+            text-decoration: none;
+        }
+
+        .nav-cta-btn {
+            background-color: white;
+            color: black;
+            padding: 10px 22px;
+            border-radius: 20px;
+            text-decoration: none;
+            font-size: 15px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .nav-cta-btn:hover {
+            transform: scale(1.05);
+            opacity: 0.9;
+        }
+
+        /* =================================== */
+        /* 3. Video Gallery Styles        */
+        /* =================================== */
+
+        /* --- Desktop: Centered Grid Layout --- */
+        .video-gallery-container {
+            max-width: 1440px;
+            margin: 0 auto;
+            padding: 120px 32px 60px; /* Padding top accounts for fixed navbar */
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 24px;
+        }
+
+        .video-card {
+            width: 100%;
+            background: var(--background-white);
+            border-radius: 16px;
+            box-shadow: 0 8px 32px var(--shadow-light);
+            border: 1px solid var(--border-light);
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .video-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 40px var(--shadow-medium);
+        }
+
+        .video-embed-wrapper {
+            width: 100%;
+            aspect-ratio: 9 / 16;
+            background-color: #000;
+            position: relative;
+        }
+        .video-embed-wrapper iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        .card-content {
+            padding: 20px;
+        }
+        .card-content h3 {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: var(--primary-text);
+        }
+        .card-content p {
+            font-size: 15px;
+            color: var(--secondary-text);
+            line-height: 1.4;
+        }
+
+        /* =================================== */
+        /* 4. Simplified Footer         */
+        /* =================================== */
+        footer {
+            background: #000000;
+            color: var(--secondary-text);
+            padding: 40px 0;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .footer-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .footer-copyright {
+            font-size: 14px;
+        }
+
+        .footer-company-info {
+            font-size: 14px;
+            text-align: right;
+        }
+
+        .footer-company-info p {
+            margin: 0;
+            line-height: 1.8;
+        }
+
+        /* =================================== */
+        /* 5. Responsiveness           */
+        /* =================================== */
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 20px;
+            }
+
+            .logo {
+                font-size: 18px;
+            }
+             .nav-cta-btn {
+                padding: 8px 18px;
+                font-size: 14px;
+            }
+
+            /* --- Mobile: TikTok-style Layout --- */
+            body {
+                overflow: hidden;
+            }
+            .video-gallery-container {
+                display: block;
+                width: 100%;
+                height: 100vh;
+                padding: 0;
+                margin: 0;
+                overflow-y: auto;
+                scroll-snap-type: y mandatory;
+                scrollbar-width: none;
+            }
+             .video-gallery-container::-webkit-scrollbar {
+                display: none;
+            }
+            .video-card {
+                width: 100%;
+                height: 100vh;
+                scroll-snap-align: start;
+                border-radius: 0;
+                border: none;
+                box-shadow: none;
+                position: relative;
+                background-color: #000;
+            }
+             .video-card:hover {
+                transform: none;
+                box-shadow: none;
+            }
+            .video-embed-wrapper {
+                height: 100%;
+                aspect-ratio: unset;
+            }
+            .card-content {
+                position: absolute;
+                bottom: 0;
+                left: 0;
+                width: 100%;
+                padding: 24px;
+                padding-bottom: 80px;
+                color: #fff;
+                background: linear-gradient(to top, rgba(0,0,0,0.7), rgba(0,0,0,0));
+                z-index: 10;
+            }
+            .card-content h3, .card-content p {
+                color: #fff;
+                text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
+            }
+
+            /* --- Footer on Mobile --- */
+            .footer-container {
+                flex-direction: column;
+                justify-content: center;
+                text-align: center;
+            }
+            .footer-company-info {
+                text-align: center;
+                margin-top: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container nav-container">
+            <a href="#" class="logo">DRY ICE BLASTER IN ACTION</a>
+            <a href="/index.html" class="nav-cta-btn">Buy Now</a>
+        </div>
+    </nav>
+
+    <main class="video-gallery-container">
+
+        <div class="video-card">
+            <div class="video-embed-wrapper">
+                <div id="player1"></div>
+            </div>
+            <div class="card-content">
+                <h3>Engine Bay Detailing</h3>
+                <p>Watch how our AI30 model effortlessly removes years of grease and grime from a complex engine bay, making it look factory new.</p>
+            </div>
+        </div>
+
+        <div class="video-card">
+            <div class="video-embed-wrapper">
+                <div id="player2"></div>
+            </div>
+            <div class="card-content">
+                <h3>Industrial Mold Cleaning</h3>
+                <p>See the power of dry ice blasting on industrial molds. No chemicals, no residue, just a perfectly clean surface ready for production.</p>
+            </div>
+        </div>
+
+        <div class="video-card">
+            <div class="video-embed-wrapper">
+                <div id="player3"></div>
+            </div>
+            <div class="card-content">
+                <h3>Satisfying Undercarriage Cleaning</h3>
+                <p>A satisfying deep clean of a vehicle's undercarriage, removing stubborn dirt and rust without damaging sensitive components.</p>
+            </div>
+        </div>
+
+        <div class="video-card">
+            <div class="video-embed-wrapper">
+                <div id="player4"></div>
+            </div>
+            <div class="card-content">
+                <h3>Fire Restoration on Wood</h3>
+                <p>Our machine safely removes soot and smoke damage from wooden beams, restoring the natural finish without water or abrasion.</p>
+            </div>
+        </div>
+
+        <div class="video-card">
+            <div class="video-embed-wrapper">
+                <div id="player5"></div>
+            </div>
+            <div class="card-content">
+                <h3>Printing Press Maintenance</h3>
+                <p>Cleaning dried ink from a complex printing press. The process is fast, effective, and significantly reduces maintenance downtime.</p>
+            </div>
+        </div>
+
+        <div class="video-card">
+            <div class="video-embed-wrapper">
+                <div id="player6"></div>
+            </div>
+            <div class="card-content">
+                <h3>Classic Car Part Restoration</h3>
+                <p>Bringing classic car parts back to life. Dry ice blasting is gentle enough for vintage components but powerful enough to strip old paint and grime.</p>
+            </div>
+        </div>
+
+        <div class="video-card">
+            <div class="video-embed-wrapper">
+                <div id="player7"></div>
+            </div>
+            <div class="card-content">
+                <h3>Alloy Wheel Restoration</h3>
+                <p>Brake dust and road tar don't stand a chance. See how we restore alloy wheels to a brilliant shine without harsh chemicals.</p>
+            </div>
+        </div>
+
+        <div class="video-card">
+            <div class="video-embed-wrapper">
+                <div id="player8"></div>
+            </div>
+            <div class="card-content">
+                <h3>Precision Engine Cleaning</h3>
+                <p>A closer look at cleaning a high-performance engine. The non-conductive properties make it safe for all electrical components.</p>
+            </div>
+        </div>
+
+        <div class="video-card">
+            <div class="video-embed-wrapper">
+                <div id="player9"></div>
+            </div>
+            <div class="card-content">
+                <h3>Deep Engine Bay Refresh</h3>
+                <p>Transforming another dirty engine bay. This process is perfect for both professional detailers and car enthusiasts.</p>
+            </div>
+        </div>
+
+        <div class="video-card">
+            <div class="video-embed-wrapper">
+                <div id="player10"></div>
+            </div>
+            <div class="card-content">
+                <h3>Sensitive Electronics Cleaning</h3>
+                <p>Demonstrating the safe and effective cleaning of a delicate circuit board. No moisture, no damage, just a perfectly clean result.</p>
+            </div>
+        </div>
+
+        <div class="video-card">
+            <div class="video-embed-wrapper">
+                <div id="player11"></div>
+            </div>
+            <div class="card-content">
+                <h3>Urban Graffiti Removal</h3>
+                <p>Removing spray paint from a brick wall. The process is fast and environmentally friendly, restoring the surface instantly.</p>
+            </div>
+        </div>
+
+        <div class="video-card">
+            <div class="video-embed-wrapper">
+                <div id="player12"></div>
+            </div>
+            <div class="card-content">
+                <h3>Heavy Machinery Parts</h3>
+                <p>Cleaning thick grease from heavy industrial parts, improving performance and making maintenance easier.</p>
+            </div>
+        </div>
+
+        <div class="video-card">
+            <div class="video-embed-wrapper">
+                <div id="player13"></div>
+            </div>
+            <div class="card-content">
+                <h3>Marine & Boat Hull Care</h3>
+                <p>Effectively removing barnacles and algae from a boat hull without damaging the gel-coat. A superior, eco-friendly marine solution.</p>
+            </div>
+        </div>
+
+        <div class="video-card">
+            <div class="video-embed-wrapper">
+                <div id="player14"></div>
+            </div>
+            <div class="card-content">
+                <h3>Factory Equipment Maintenance</h3>
+                <p>Routine cleaning on a factory production line. Cleaning in-place saves hours of disassembly and reassembly time.</p>
+            </div>
+        </div>
+
+        <div class="video-card">
+            <div class="video-embed-wrapper">
+                <div id="player15"></div>
+            </div>
+            <div class="card-content">
+                <h3>Welding Robot Cleanup</h3>
+                <p>Removing weld slag and spatter from an automated welding robot to ensure precision and prevent malfunctions.</p>
+            </div>
+        </div>
+
+        <div class="video-card">
+            <div class="video-embed-wrapper">
+                <div id="player16"></div>
+            </div>
+            <div class="card-content">
+                <h3>Tire Mold Residue Removal</h3>
+                <p>Cleaning residue from a tire manufacturing mold to ensure product quality and extend the life of the mold.</p>
+            </div>
+        </div>
+
+    </main>
+
+    <footer>
+        <div class="container footer-container">
+            <div class="footer-copyright">
+                <p>&copy; 2025 Dry Ice Blasting Machine. All Rights Reserved.</p>
+            </div>
+            <div class="footer-company-info">
+                <p>sales@aiolith.com | +1 (832) 895 1654 (SMS)</p>
+                <p>815 Brazos St. Ste.500 TX AUSTIN 78701</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://www.youtube.com/iframe_api"></script>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+
+        // ===================================
+        //      JavaScript Logic
+        // ===================================
+
+        // --- Video Player Data ---
+        const videoData = {
+            'player1': 'O3q3MdyWq-Q',
+            'player2': 'yqbW74At4sg',
+            'player3': '2fJ7pMnEZho',
+            'player4': 'PLXOymuoXV0',
+            'player5': 'GvjZF6CPvkY',
+            'player6': 'GuWz97IBj1o',
+            'player7': 'EmaF8GN4A74',
+            'player8': 'Dx01o_czTgY',
+            'player9': 'RLolZB-AwuY',
+            'player10': '686wJBeEnsc',
+            'player11': 'vYTWuO0S_YA',
+            'player12': 'zQlu-oytHxs',
+            'player13': 'edEBbl8Wr8k',
+            'player14': 'jNCZpGXGzbA',
+            'player15': 'Ntwmg45nu1g',
+            'player16': 'bUTnSbFdzuw'
+        };
+
+        let players = {};
+        let activePlayer = null;
+
+        // This function is called by the YouTube API when it's ready
+        window.onYouTubeIframeAPIReady = function() {
+            for (const playerId in videoData) {
+                if (document.getElementById(playerId)) {
+                    players[playerId] = new YT.Player(playerId, {
+                        height: '100%',
+                        width: '100%',
+                        videoId: videoData[playerId],
+                        playerVars: {
+                            'playsinline': 1,
+                            'autoplay': 0,
+                            'controls': 0,
+                            'showinfo': 0,
+                            'rel': 0,
+                            'loop': 1,
+                            'playlist': videoData[playerId] // Required for looping single video
+                        },
+                        events: {
+                            'onReady': onPlayerReady
+                        }
+                    });
+                }
+            }
+        };
+
+        function onPlayerReady(event) {
+            event.target.mute(); // Mute all players by default
+        }
+
+        // --- Intersection Observer for Autoplay on Mobile ---
+        const observerOptions = {
+            root: document.querySelector('.video-gallery-container'),
+            rootMargin: '0px',
+            threshold: 0.75 // Trigger when 75% of the video is visible
+        };
+
+        const observerCallback = (entries, observer) => {
+            entries.forEach(entry => {
+                const playerDiv = entry.target.querySelector('div[id^="player"]');
+                if (!playerDiv) return;
+
+                const targetPlayerId = playerDiv.id;
+                const player = players[targetPlayerId];
+
+                if (!player) return;
+
+                if (entry.isIntersecting) {
+                    if (typeof player.playVideo === 'function') {
+                        player.playVideo();
+                        activePlayer = player;
+                    }
+                } else {
+                    if (typeof player.pauseVideo === 'function') {
+                        player.pauseVideo();
+                         if (activePlayer === player) {
+                            activePlayer = null;
+                        }
+                    }
+                }
+            });
+        };
+
+        // --- Initialize Observer on Mobile Only ---
+        if (window.innerWidth <= 768) {
+            const observer = new IntersectionObserver(observerCallback, observerOptions);
+            const videoCards = document.querySelectorAll('.video-card');
+            videoCards.forEach(card => {
+                observer.observe(card);
+            });
+        }
+    });
+    </script>
+</body>
+</html>
