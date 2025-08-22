@@ -32,6 +32,8 @@
     <meta name="geo.position" content="30.3414, -97.7549">
     <meta name="ICBM" content="30.3414, -97.7549">
 
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -1904,6 +1906,17 @@
 	})();
 	</script>
 	<!--End of Tawk.to Script-->
+
+<script>
+let lastTouchEnd = 0;
+document.addEventListener('touchend', function(event) {
+  const now = (new Date()).getTime();
+  if (now - lastTouchEnd <= 300) {
+    event.preventDefault();
+  }
+  lastTouchEnd = now;
+}, false);
+</script>
 	
 </head>
 <body>
