@@ -65,8 +65,6 @@
     </script>
 
     <style>
-
-
         * {
             margin: 0;
             padding: 0;
@@ -124,7 +122,7 @@
             font-weight: 600;
             color: white;
             letter-spacing: -0.02em;
-            z-index: 5001;	
+            z-index: 5001;
         }
 
         .nav-right {
@@ -1307,6 +1305,80 @@
             line-height: 1.4;
         }
 
+        /* ===== OPTIMIZED: Vertical Comparison Section Styles ===== */
+        .vertical-comparison-wrapper {
+            margin: 120px auto;
+            max-width: 1100px;
+        }
+        .vertical-comparison-wrapper .section-header {
+            margin-bottom: 60px;
+        }
+        .vertical-comparison-wrapper .section-header .section-title {
+            color: #fff; /* Ensures title is white */
+        }
+        .vertical-comparison-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px; /* Space between columns */
+            align-items: stretch; /* Make blocks in a row the same height */
+        }
+
+        .product-header-v, .feature-block-v {
+            grid-column: span 1;
+        }
+
+        .product-header-v {
+            text-align: center;
+            padding: 30px 15px;
+        }
+        .product-header-v img {
+            max-height: 160px;
+            width: 100%; /* Make width responsive */
+            aspect-ratio: 1 / 1; /* Set aspect ratio */
+            object-fit: cover; /* Ensure image covers the area without distortion */
+            margin-bottom: 24px;
+            background: #fff;
+            border-radius: 16px;
+        }
+        .product-header-v h3 {
+            font-size: 24px;
+            font-weight: 600;
+            color: #fff;
+            margin-bottom: 8px;
+        }
+        .product-header-v .price {
+            font-size: 18px;
+            color: var(--secondary-text);
+            margin-bottom: 24px;
+        }
+
+        .feature-block-v {
+            text-align: center;
+            padding: 30px 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+        }
+
+        .feature-block-v svg {
+            width: 32px;
+            height: 32px;
+            color: #fff;
+            margin-bottom: 16px;
+        }
+        .feature-block-v h4 {
+            font-size: 16px;
+            font-weight: 600;
+            color: #fff;
+            margin-bottom: 8px;
+        }
+        .feature-block-v p {
+            font-size: 15px;
+            color: var(--secondary-text);
+            line-height: 1.4;
+        }
+
         /* Part 3: FAQs */
         .faqs-section {
             display: grid;
@@ -1643,13 +1715,21 @@
                 display: flex;
             }
 
-            .advantages-grid, .strength-grid, .product-advantages {
+            .advantages-grid, .product-advantages {
                 grid-template-columns: repeat(2, 1fr);
                 gap: 32px;
             }
 
-            .industry-grid, .comparison-grid {
+            .strength-grid {
+                 grid-template-columns: 1fr;
+            }
+
+            .industry-grid {
                 grid-template-columns: 1fr;
+            }
+
+            .comparison-grid {
+                grid-template-columns: 1.2fr 1fr;
             }
 
             .footer-container {
@@ -1664,7 +1744,7 @@
 
         @media (max-width: 768px) {
              #page-progress {
-                 display: flex;
+                  display: flex;
              }
             .section {
                 padding: 80px 0;
@@ -1678,9 +1758,52 @@
                 margin-bottom: 60px;
             }
 
-            .advantages-grid, .strength-grid, .product-advantages, .industry-grid, .image-text-section, .choose-text-section, .faqs-section {
+            .advantages-grid, .strength-grid, .product-advantages, .industry-grid, .image-text-section, .choose-text-section, .faqs-section, .comparison-grid {
                 grid-template-columns: 1fr;
             }
+
+            /* ===== OPTIMIZED: Responsive Vertical Comparison ===== */
+            .vertical-comparison-grid {
+                grid-template-columns: 1fr 1fr; /* Force two columns on mobile */
+                gap: 5px; /* Reduce gap for mobile */
+            }
+            .product-header-v {
+                padding: 20px 5px;
+            }
+            .product-header-v img {
+                max-height: none; /* Remove max-height to respect aspect ratio */
+                margin-bottom: 16px;
+            }
+            .product-header-v h3 {
+                font-size: 16px;
+                line-height: 1.2;
+                min-height: 38px;
+            }
+            .product-header-v .price {
+                font-size: 15px;
+                margin-bottom: 16px;
+            }
+            .feature-block-v {
+                padding: 20px 5px;
+                min-height: 150px;
+            }
+            .feature-block-v svg {
+                width: 28px;
+                height: 28px;
+                margin-bottom: 12px;
+            }
+            .feature-block-v h4 {
+                font-size: 14px;
+                line-height: 1.3;
+                min-height: 2.6em; /* Reserve space for two lines to align content below */
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+             .feature-block-v p {
+                font-size: 13px;
+                word-wrap: break-word;
+             }
 
             .image-text-section {
                 gap: 60px;
@@ -1745,9 +1868,9 @@
                 gap: 24px;
             }
 
-            /* --- NEW: Mobile styles for attachments carousel --- */
+            /* Mobile styles for attachments carousel */
             .product-hero .product-content {
-                padding: 0; /* Allow carousel to be full-width */
+                padding: 0;
             }
             .product-header, .product-showcase, .product-advantages, .specs-grid {
                 padding: 0 20px;
@@ -1760,7 +1883,7 @@
                 scroll-snap-type: x mandatory;
                 scrollbar-width: none;
                 -webkit-overflow-scrolling: touch;
-                transform: none !important; /* Override JS transform */
+                transform: none !important;
                 padding: 0 20px;
             }
             .attachments-carousel-wrapper::-webkit-scrollbar {
@@ -1773,8 +1896,6 @@
             .attachments-section .carousel-controls {
                 padding: 0 20px;
             }
-            /* --- END: New styles --- */
-
 
             .scenarios-section .container {
                 padding: 0;
@@ -1841,8 +1962,8 @@
                 gap: 20px;
             }
              .hero {
-                 padding-top: 90px;
-                 padding-bottom: 80px;
+                  padding-top: 90px;
+                  padding-bottom: 80px;
              }
         }
 
@@ -1864,12 +1985,12 @@
     border-radius: 50%; /* Circular shape */
     box-shadow: 0 8px 32px var(--shadow-light);
     color: var(--primary-text); /* Arrow color */
-    
+
     /* --- Content Alignment --- */
     display: flex;
     align-items: center;
     justify-content: center;
-    
+
     /* --- Initial State (hidden) & Animation --- */
     opacity: 0;
     visibility: hidden;
@@ -1893,7 +2014,6 @@
 }
     </style>
 
-	<!--Start of Tawk.to Script-->
 	<script type="text/javascript">
 	var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
 	(function(){
@@ -1905,9 +2025,7 @@
 	s0.parentNode.insertBefore(s1,s0);
 	})();
 	</script>
-	<!--End of Tawk.to Script-->
-
-<script>
+	<script>
 let lastTouchEnd = 0;
 document.addEventListener('touchend', function(event) {
   const now = (new Date()).getTime();
@@ -1917,7 +2035,7 @@ document.addEventListener('touchend', function(event) {
   lastTouchEnd = now;
 }, false);
 </script>
-	
+
 </head>
 <body>
     <nav class="navbar">
@@ -2250,10 +2368,10 @@ document.addEventListener('touchend', function(event) {
                 </div>
                 <div class="carousel-controls attachments-section">
                      <button class="carousel-btn" id="attachments-prev-btn">
-                         <svg viewBox="0 0 24 24" fill="currentColor"><path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/></svg>
+                          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/></svg>
                      </button>
                      <button class="carousel-btn" id="attachments-next-btn">
-                         <svg viewBox="0 0 24 24" fill="currentColor"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/></svg>
+                          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/></svg>
                      </button>
                 </div>
             </div>
@@ -2476,12 +2594,12 @@ document.addEventListener('touchend', function(event) {
             <div class="choose-content">
                 <div class="section-header fade-in">
                   <h2 class="section-title" style="color: white;">Why Choose Us</h2>
-                    <p class="section-subtitle" style="color: rgba(255, 255, 255, 0.8);">Leading the industry with innovation, quality, and service excellence</p>
+                      <p class="section-subtitle" style="color: rgba(255, 255, 255, 0.8);">Leading the industry with innovation, quality, and service excellence</p>
                 </div>
 
                 <div class="choose-text-section fade-in">
                     <div class="choose-text">
-                        <h3 id="why-us">Industry Leadership</h3>
+                        <h3>Industry Leadership</h3>
                         <p>AIOLITH is a newly established cleaning equipment brand in the United States, supported by a team with over 18 years of industry experience. With advanced manufacturing facilities and large-scale warehouses, we are committed to delivering reliable, high-quality cleaning equipment for professional users.</p>
                         <p>In the U.S., we have strategically located warehouses on both the East Coast and the West Coast to ensure fast delivery and excellent customer service.</p>
                     </div>
@@ -2506,26 +2624,6 @@ document.addEventListener('touchend', function(event) {
 
                         <div class="strength-card">
                             <div class="strength-image">
-                                <img src="/images/choose-dry-ice-blaster/Advanced-Manufacturing-Workshop.webp" alt="Component Processing">
-                            </div>
-                            <div class="strength-content">
-                                <h3 class="strength-title">Component Processing and Manufacturing</h3>
-                                <p class="strength-description">Precision component processing and manufacturing to ensure superior quality.</p>
-                            </div>
-                        </div>
-
-                        <div class="strength-card">
-                            <div class="strength-image">
-                                <img src="/images/choose-dry-ice-blaster/Assembly-Line-Operations.webp" alt="Assembly Line Operations">
-                            </div>
-                            <div class="strength-content">
-                                <h3 class="strength-title">Assembly Line Operations</h3>
-                                <p class="strength-description">Efficient assembly line operations to ensure product quality and production efficiency.</p>
-                            </div>
-                        </div>
-
-                        <div class="strength-card">
-                            <div class="strength-image">
                                 <img src="/images/choose-dry-ice-blaster/Quality-Control-and-Inspection.webp" alt="Quality Control">
                             </div>
                             <div class="strength-content">
@@ -2543,19 +2641,137 @@ document.addEventListener('touchend', function(event) {
                                 <p class="strength-description">Certified by CE, ISO, and other international standards, our products meet the highest industry requirements for safety and reliability.</p>
                             </div>
                         </div>
-
-                        <div class="strength-card">
-                            <div class="strength-image">
-                                <img src="/images/choose-dry-ice-blaster/Dry-ice-blaster-international-shipping.webp" alt="Packaging and Shipping">
-                            </div>
-                            <div class="strength-content">
-                                <h3 class="strength-title">Packaging and Shipping</h3>
-                                <p class="strength-description">Professional packaging and efficient shipping to ensure safe delivery.</p>
-                            </div>
-                        </div>
-
                     </div>
                 </div>
+
+                <div class="vertical-comparison-wrapper fade-in">
+                    <div class="section-header">
+                        <h2 class="section-title">A Head-to-Head Comparison</h2>
+                    </div>
+                    <div class="vertical-comparison-grid">
+                        <div class="product-header-v">
+                            <img src="/images/product-pic/dry-ice-blasting-machine-AI30-1.webp" alt="AI30 Dry Ice Blaster">
+                            <h3>AI30 Dry Ice Blaster</h3>
+                            <p class="price">$2,944</p>
+                        </div>
+                        <div class="product-header-v">
+                            <img src="/images/others/competitor-machine.webp" alt="Generic Competitor Machine">
+                            <h3>Competitor Machine</h3>
+                            <p class="price">$3,500+</p>
+                        </div>
+
+                        <div class="feature-block-v">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 4H3v16h18V4zM3 10h18M10 4v6"/></svg>
+                            <h4>Dry Ice Hopper Capacity</h4>
+                            <p>44 lbs</p>
+                        </div>
+                        <div class="feature-block-v">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 4H3v16h18V4zM3 10h18M10 4v6"/></svg>
+                            <h4>Dry Ice Hopper Capacity</h4>
+                            <p>25 lbs</p>
+                        </div>
+
+                        <div class="feature-block-v">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10 10-4.5 10-10S17.5 2 12 2zm0 16c-3.3 0-6-2.7-6-6s2.7-6 6-6 6 2.7 6 6-2.7 6-6 6z"/><path d="M12 8l-3 4h6l-3 4"/></svg>
+                            <h4>Blasting Pressure</h4>
+                            <p>87 ~ 116 psi</p>
+                        </div>
+                        <div class="feature-block-v">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10 10-4.5 10-10S17.5 2 12 2zm0 16c-3.3 0-6-2.7-6-6s2.7-6 6-6 6 2.7 6 6-2.7 6-6 6z"/><path d="M12 8l-3 4h6l-3 4"/></svg>
+                            <h4>Blasting Pressure</h4>
+                            <p>70 ~ 100 psi</p>
+                        </div>
+
+                        <div class="feature-block-v">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="1"/><circle cx="19" cy="5" r="1"/><circle cx="5" cy="19" r="1"/><circle cx="5" cy="5" r="1"/><circle cx="19" cy="19" r="1"/></svg>
+                            <h4>Particle Size</h4>
+                            <p>Up to 3 mm</p>
+                        </div>
+                        <div class="feature-block-v">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="1"/><circle cx="19" cy="5" r="1"/><circle cx="5" cy="19" r="1"/><circle cx="5" cy="5" r="1"/><circle cx="19" cy="19" r="1"/></svg>
+                            <h4>Particle Size</h4>
+                            <p>3 mm Only</p>
+                        </div>
+
+                        <div class="feature-block-v">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>
+                            <h4>Noise Level</h4>
+                            <p>~ 80 dB</p>
+                        </div>
+                        <div class="feature-block-v">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>
+                            <h4>Noise Level</h4>
+                            <p>100+ dB</p>
+                        </div>
+
+                        <div class="feature-block-v">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                            <h4>Overload Protection</h4>
+                            <p>Included</p>
+                        </div>
+                        <div class="feature-block-v">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                            <h4>Overload Protection</h4>
+                            <p>Not Available</p>
+                        </div>
+
+                        <div class="feature-block-v">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+                            <h4>Anti-Clogging Design</h4>
+                            <p>Included</p>
+                        </div>
+                        <div class="feature-block-v">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+                            <h4>Anti-Clogging Design</h4>
+                            <p>Not Available</p>
+                        </div>
+
+                        <div class="feature-block-v">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20z"/><polyline points="12 6 12 12 16 14"/></svg>
+                            <h4>Lifespan</h4>
+                            <p>5+ Years Heavy Use</p>
+                        </div>
+                        <div class="feature-block-v">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20z"/><polyline points="12 6 12 12 16 14"/></svg>
+                            <h4>Lifespan</h4>
+                            <p>1-2 Years Standard Use</p>
+                        </div>
+
+                        <div class="feature-block-v">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2z"/></svg>
+                            <h4>Service & Warranty</h4>
+                            <p>1-Year Warranty, US Support</p>
+                        </div>
+                        <div class="feature-block-v">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2z"/></svg>
+                            <h4>Service & Warranty</h4>
+                            <p>90-Day Limited Warranty</p>
+                        </div>
+
+                        <div class="feature-block-v">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg>
+                            <h4>Accessory Support</h4>
+                            <p>Full Range Available</p>
+                        </div>
+                        <div class="feature-block-v">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg>
+                            <h4>Accessory Support</h4>
+                            <p>Limited Options</p>
+                        </div>
+
+                        <div class="feature-block-v">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>
+                            <h4>Material</h4>
+                            <p>Stainless Steel & Industrial Grade Polymer</p>
+                        </div>
+                        <div class="feature-block-v">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>
+                            <h4>Material</h4>
+                            <p>Standard Plastic Casing</p>
+                        </div>
+                    </div>
+                </div>
+
 
                 <div class="faqs-section fade-in">
                     <div class="faqs-content">
@@ -2655,7 +2871,7 @@ document.addEventListener('touchend', function(event) {
                 <div class="footer-links">
                     <h4>Product</h4>
                     <a href="#product">AI30 Dry Ice Blaster</a>
-                    <a href="#product">Advantages</a>
+                    <a href="#advantages">Advantages</a>
                     <a href="#product">Specifications</a>
                     <a href="/videos.html">Watch Video</a>
                 </div>
@@ -2771,8 +2987,8 @@ document.addEventListener('touchend', function(event) {
                 prevBtn.addEventListener('click', () => {
                     if(isDesktop) {
                          if (currentSlide > 0) {
-                             currentSlide--;
-                             updateDesktopCarousel();
+                              currentSlide--;
+                              updateDesktopCarousel();
                          }
                     } else {
                         scrollCarousel('prev');
@@ -3178,7 +3394,7 @@ document.addEventListener('touchend', function(event) {
         });
 
 document.addEventListener('DOMContentLoaded', function() {
-    
+
     // ===== NEW: Back to Top Button Functionality =====
     const backToTopBtn = document.getElementById('back-to-top-btn');
 
@@ -3196,7 +3412,7 @@ document.addEventListener('DOMContentLoaded', function() {
         // 2. Listen for the click event
         backToTopBtn.addEventListener('click', (e) => {
             e.preventDefault(); // Prevent the default link behavior
-            
+
             // Smoothly scroll to the top of the page
             window.scrollTo({
                 top: 0,
@@ -3206,15 +3422,15 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     // ===============================================
 });
-		
+
     </script>
 
 	<a href="#home" id="back-to-top-btn" title="Go to top">
     <svg viewBox="0 0 24 24" fill="currentColor" width="24px" height="24px">
         <path d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"/>
-    </svg> 
+    </svg>
 	</a>
     <div id="lightbox">
-	
+
 </body>
 </html>
