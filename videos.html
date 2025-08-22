@@ -60,7 +60,7 @@
             background: var(--background-light);
             overflow-x: hidden;
         }
-
+        
         .container {
             max-width: 1440px;
             margin: 0 auto;
@@ -112,16 +112,15 @@
             transform: scale(1.05);
             opacity: 0.9;
         }
-
+        
         /* =================================== */
         /* 3. Video Gallery Styles        */
         /* =================================== */
-
-        /* --- Desktop: Centered Grid Layout --- */
+        
         .video-gallery-container {
             max-width: 1440px;
             margin: 0 auto;
-            padding: 120px 32px 60px; /* Padding top accounts for fixed navbar */
+            padding: 120px 32px 60px;
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
             gap: 24px;
@@ -147,28 +146,65 @@
             aspect-ratio: 9 / 16;
             background-color: #000;
             position: relative;
+            cursor: pointer;
         }
+
+        .video-thumbnail {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: opacity 0.3s ease;
+        }
+
+        .play-button {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 60px;
+            height: 60px;
+            background-color: rgba(0, 0, 0, 0.5);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            pointer-events: none; /* Allows click to pass through to wrapper */
+        }
+        .play-button::after {
+            content: '';
+            width: 0;
+            height: 0;
+            border-style: solid;
+            border-width: 12px 0 12px 20px;
+            border-color: transparent transparent transparent white;
+            margin-left: 4px;
+        }
+        .video-embed-wrapper:hover .play-button {
+            transform: translate(-50%, -50%) scale(1.1);
+        }
+        
+        /* When video is loaded, hide thumbnail and play button */
+        .video-embed-wrapper.video-loaded .video-thumbnail,
+        .video-embed-wrapper.video-loaded .play-button {
+            opacity: 0;
+            visibility: hidden;
+        }
+        
+        .youtube-player-placeholder,
         .video-embed-wrapper iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
             width: 100%;
             height: 100%;
             border: none;
         }
 
-        .card-content {
-            padding: 20px;
-        }
-        .card-content h3 {
-            font-size: 18px;
-            font-weight: 600;
-            margin-bottom: 8px;
-            color: var(--primary-text);
-        }
-        .card-content p {
-            font-size: 15px;
-            color: var(--secondary-text);
-            line-height: 1.4;
-        }
-
+        .card-content { padding: 20px; }
+        .card-content h3 { font-size: 18px; font-weight: 600; margin-bottom: 8px; color: var(--primary-text); }
+        .card-content p { font-size: 15px; color: var(--secondary-text); line-height: 1.4; }
+        
         /* =================================== */
         /* 4. Simplified Footer         */
         /* =================================== */
@@ -179,276 +215,188 @@
             border-top: 1px solid rgba(255, 255, 255, 0.1);
         }
 
-        .footer-container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 20px;
-        }
-
-        .footer-copyright {
-            font-size: 14px;
-        }
-
-        .footer-company-info {
-            font-size: 14px;
-            text-align: right;
-        }
-
-        .footer-company-info p {
-            margin: 0;
-            line-height: 1.8;
-        }
+        .footer-container { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px; }
+        .footer-copyright { font-size: 14px; }
+        .footer-company-info { font-size: 14px; text-align: right; }
+        .footer-company-info p { margin: 0; line-height: 1.8; }
 
         /* =================================== */
         /* 5. Responsiveness           */
         /* =================================== */
         @media (max-width: 768px) {
-            .container {
-                padding: 0 20px;
-            }
-
-            .logo {
-                font-size: 18px;
-            }
-             .nav-cta-btn {
-                padding: 8px 18px;
-                font-size: 14px;
-            }
+            .container { padding: 0 20px; }
+            .logo { font-size: 18px; }
+            .nav-cta-btn { padding: 8px 18px; font-size: 14px; }
 
             /* --- Mobile: TikTok-style Layout --- */
-            body {
-                overflow: hidden;
-            }
+            body { overflow: hidden; }
             .video-gallery-container {
-                display: block;
-                width: 100%;
-                height: 100vh;
-                padding: 0;
-                margin: 0;
-                overflow-y: auto;
-                scroll-snap-type: y mandatory;
+                display: block; width: 100%; height: 100vh;
+                padding: 0; margin: 0;
+                overflow-y: auto; scroll-snap-type: y mandatory;
                 scrollbar-width: none;
             }
-             .video-gallery-container::-webkit-scrollbar {
-                display: none;
-            }
+            .video-gallery-container::-webkit-scrollbar { display: none; }
             .video-card {
-                width: 100%;
-                height: 100vh;
-                scroll-snap-align: start;
-                border-radius: 0;
-                border: none;
-                box-shadow: none;
-                position: relative;
-                background-color: #000;
+                width: 100%; height: 100vh;
+                scroll-snap-align: start; border-radius: 0;
+                border: none; box-shadow: none;
+                position: relative; background-color: #000;
             }
-             .video-card:hover {
-                transform: none;
-                box-shadow: none;
-            }
-            .video-embed-wrapper {
-                height: 100%;
-                aspect-ratio: unset;
-            }
+            .video-card:hover { transform: none; box-shadow: none; }
+            .video-embed-wrapper { height: 100%; aspect-ratio: unset; cursor: default; }
+            .play-button { display: none; } /* Hide play button on mobile */
+
             .card-content {
-                position: absolute;
-                bottom: 0;
-                left: 0;
-                width: 100%;
-                padding: 24px;
-                padding-bottom: 80px;
-                color: #fff;
-                background: linear-gradient(to top, rgba(0,0,0,0.7), rgba(0,0,0,0));
+                position: absolute; bottom: 0; left: 0;
+                width: 100%; padding: 24px; padding-bottom: 80px;
+                color: #fff; background: linear-gradient(to top, rgba(0,0,0,0.7), rgba(0,0,0,0));
                 z-index: 10;
             }
-            .card-content h3, .card-content p {
-                color: #fff;
-                text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
-            }
+            .card-content h3, .card-content p { color: #fff; text-shadow: 1px 1px 3px rgba(0,0,0,0.5); }
 
             /* --- Footer on Mobile --- */
-            .footer-container {
-                flex-direction: column;
-                justify-content: center;
-                text-align: center;
-            }
-            .footer-company-info {
-                text-align: center;
-                margin-top: 20px;
-            }
+            .footer-container { flex-direction: column; justify-content: center; text-align: center; }
+            .footer-company-info { text-align: center; margin-top: 20px; }
         }
     </style>
 </head>
 <body>
     <nav class="navbar">
         <div class="container nav-container">
-            <a href="#" class="logo">DRY ICE BLASTER IN ACTION</a>
-            <a href="/index.html" class="nav-cta-btn">Buy Now</a>
+            <a href="#" class="logo">VIDEO GALLERY</a>
+            <a href="https://www.aiolith.com/products/ai30-dry-ice-blasting-machine" class="nav-cta-btn">Buy Now</a>
         </div>
     </nav>
 
     <main class="video-gallery-container">
-
         <div class="video-card">
             <div class="video-embed-wrapper">
-                <div id="player1"></div>
+                <img loading="lazy" src="https://img.youtube.com/vi/O3q3MdyWq-Q/hqdefault.jpg" alt="Engine Bay Detailing thumbnail" class="video-thumbnail">
+                <div class="play-button"></div>
+                <div class="youtube-player-placeholder" id="player1" data-video-id="O3q3MdyWq-Q"></div>
             </div>
-            <div class="card-content">
-                <h3>Engine Bay Detailing</h3>
-                <p>Watch how our AI30 model effortlessly removes years of grease and grime from a complex engine bay, making it look factory new.</p>
-            </div>
+            <div class="card-content"><h3>Engine Bay Detailing</h3><p>Watch how our AI30 model effortlessly removes years of grease and grime from a complex engine bay, making it look factory new.</p></div>
         </div>
-
         <div class="video-card">
             <div class="video-embed-wrapper">
-                <div id="player2"></div>
+                <img loading="lazy" src="https://img.youtube.com/vi/yqbW74At4sg/hqdefault.jpg" alt="Industrial Mold Cleaning thumbnail" class="video-thumbnail">
+                <div class="play-button"></div>
+                <div class="youtube-player-placeholder" id="player2" data-video-id="yqbW74At4sg"></div>
             </div>
-            <div class="card-content">
-                <h3>Industrial Mold Cleaning</h3>
-                <p>See the power of dry ice blasting on industrial molds. No chemicals, no residue, just a perfectly clean surface ready for production.</p>
-            </div>
+            <div class="card-content"><h3>Industrial Mold Cleaning</h3><p>See the power of dry ice blasting on industrial molds. No chemicals, no residue, just a perfectly clean surface ready for production.</p></div>
         </div>
-
         <div class="video-card">
             <div class="video-embed-wrapper">
-                <div id="player3"></div>
+                <img loading="lazy" src="https://img.youtube.com/vi/2fJ7pMnEZho/hqdefault.jpg" alt="Satisfying Undercarriage Cleaning thumbnail" class="video-thumbnail">
+                <div class="play-button"></div>
+                <div class="youtube-player-placeholder" id="player3" data-video-id="2fJ7pMnEZho"></div>
             </div>
-            <div class="card-content">
-                <h3>Satisfying Undercarriage Cleaning</h3>
-                <p>A satisfying deep clean of a vehicle's undercarriage, removing stubborn dirt and rust without damaging sensitive components.</p>
-            </div>
+            <div class="card-content"><h3>Satisfying Undercarriage Cleaning</h3><p>A satisfying deep clean of a vehicle's undercarriage, removing stubborn dirt and rust without damaging sensitive components.</p></div>
         </div>
-
         <div class="video-card">
             <div class="video-embed-wrapper">
-                <div id="player4"></div>
+                <img loading="lazy" src="https://img.youtube.com/vi/PLXOymuoXV0/hqdefault.jpg" alt="Fire Restoration on Wood thumbnail" class="video-thumbnail">
+                <div class="play-button"></div>
+                <div class="youtube-player-placeholder" id="player4" data-video-id="PLXOymuoXV0"></div>
             </div>
-            <div class="card-content">
-                <h3>Fire Restoration on Wood</h3>
-                <p>Our machine safely removes soot and smoke damage from wooden beams, restoring the natural finish without water or abrasion.</p>
-            </div>
+            <div class="card-content"><h3>Fire Restoration on Wood</h3><p>Our machine safely removes soot and smoke damage from wooden beams, restoring the natural finish without water or abrasion.</p></div>
         </div>
-
         <div class="video-card">
             <div class="video-embed-wrapper">
-                <div id="player5"></div>
+                <img loading="lazy" src="https://img.youtube.com/vi/GvjZF6CPvkY/hqdefault.jpg" alt="Printing Press Maintenance thumbnail" class="video-thumbnail">
+                <div class="play-button"></div>
+                <div class="youtube-player-placeholder" id="player5" data-video-id="GvjZF6CPvkY"></div>
             </div>
-            <div class="card-content">
-                <h3>Printing Press Maintenance</h3>
-                <p>Cleaning dried ink from a complex printing press. The process is fast, effective, and significantly reduces maintenance downtime.</p>
-            </div>
+            <div class="card-content"><h3>Printing Press Maintenance</h3><p>Cleaning dried ink from a complex printing press. The process is fast, effective, and significantly reduces maintenance downtime.</p></div>
         </div>
-
         <div class="video-card">
             <div class="video-embed-wrapper">
-                <div id="player6"></div>
+                <img loading="lazy" src="https://img.youtube.com/vi/GuWz97IBj1o/hqdefault.jpg" alt="Classic Car Part Restoration thumbnail" class="video-thumbnail">
+                <div class="play-button"></div>
+                <div class="youtube-player-placeholder" id="player6" data-video-id="GuWz97IBj1o"></div>
             </div>
-            <div class="card-content">
-                <h3>Classic Car Part Restoration</h3>
-                <p>Bringing classic car parts back to life. Dry ice blasting is gentle enough for vintage components but powerful enough to strip old paint and grime.</p>
-            </div>
+            <div class="card-content"><h3>Classic Car Part Restoration</h3><p>Bringing classic car parts back to life. Dry ice blasting is gentle enough for vintage components but powerful enough to strip old paint and grime.</p></div>
         </div>
-
         <div class="video-card">
             <div class="video-embed-wrapper">
-                <div id="player7"></div>
+                <img loading="lazy" src="https://img.youtube.com/vi/EmaF8GN4A74/hqdefault.jpg" alt="Alloy Wheel Restoration thumbnail" class="video-thumbnail">
+                <div class="play-button"></div>
+                <div class="youtube-player-placeholder" id="player7" data-video-id="EmaF8GN4A74"></div>
             </div>
-            <div class="card-content">
-                <h3>Alloy Wheel Restoration</h3>
-                <p>Brake dust and road tar don't stand a chance. See how we restore alloy wheels to a brilliant shine without harsh chemicals.</p>
-            </div>
+            <div class="card-content"><h3>Alloy Wheel Restoration</h3><p>Brake dust and road tar don't stand a chance. See how we restore alloy wheels to a brilliant shine without harsh chemicals.</p></div>
         </div>
-
         <div class="video-card">
             <div class="video-embed-wrapper">
-                <div id="player8"></div>
+                <img loading="lazy" src="https://img.youtube.com/vi/Dx01o_czTgY/hqdefault.jpg" alt="Precision Engine Cleaning thumbnail" class="video-thumbnail">
+                <div class="play-button"></div>
+                <div class="youtube-player-placeholder" id="player8" data-video-id="Dx01o_czTgY"></div>
             </div>
-            <div class="card-content">
-                <h3>Precision Engine Cleaning</h3>
-                <p>A closer look at cleaning a high-performance engine. The non-conductive properties make it safe for all electrical components.</p>
-            </div>
+            <div class="card-content"><h3>Precision Engine Cleaning</h3><p>A closer look at cleaning a high-performance engine. The non-conductive properties make it safe for all electrical components.</p></div>
         </div>
-
         <div class="video-card">
             <div class="video-embed-wrapper">
-                <div id="player9"></div>
+                <img loading="lazy" src="https://img.youtube.com/vi/RLolZB-AwuY/hqdefault.jpg" alt="Deep Engine Bay Refresh thumbnail" class="video-thumbnail">
+                <div class="play-button"></div>
+                <div class="youtube-player-placeholder" id="player9" data-video-id="RLolZB-AwuY"></div>
             </div>
-            <div class="card-content">
-                <h3>Deep Engine Bay Refresh</h3>
-                <p>Transforming another dirty engine bay. This process is perfect for both professional detailers and car enthusiasts.</p>
-            </div>
+            <div class="card-content"><h3>Deep Engine Bay Refresh</h3><p>Transforming another dirty engine bay. This process is perfect for both professional detailers and car enthusiasts.</p></div>
         </div>
-
         <div class="video-card">
             <div class="video-embed-wrapper">
-                <div id="player10"></div>
+                <img loading="lazy" src="https://img.youtube.com/vi/686wJBeEnsc/hqdefault.jpg" alt="Sensitive Electronics Cleaning thumbnail" class="video-thumbnail">
+                <div class="play-button"></div>
+                <div class="youtube-player-placeholder" id="player10" data-video-id="686wJBeEnsc"></div>
             </div>
-            <div class="card-content">
-                <h3>Sensitive Electronics Cleaning</h3>
-                <p>Demonstrating the safe and effective cleaning of a delicate circuit board. No moisture, no damage, just a perfectly clean result.</p>
-            </div>
+            <div class="card-content"><h3>Sensitive Electronics Cleaning</h3><p>Demonstrating the safe and effective cleaning of a delicate circuit board. No moisture, no damage, just a perfectly clean result.</p></div>
         </div>
-
         <div class="video-card">
             <div class="video-embed-wrapper">
-                <div id="player11"></div>
+                <img loading="lazy" src="https://img.youtube.com/vi/vYTWuO0S_YA/hqdefault.jpg" alt="Urban Graffiti Removal thumbnail" class="video-thumbnail">
+                <div class="play-button"></div>
+                <div class="youtube-player-placeholder" id="player11" data-video-id="vYTWuO0S_YA"></div>
             </div>
-            <div class="card-content">
-                <h3>Urban Graffiti Removal</h3>
-                <p>Removing spray paint from a brick wall. The process is fast and environmentally friendly, restoring the surface instantly.</p>
-            </div>
+            <div class="card-content"><h3>Urban Graffiti Removal</h3><p>Removing spray paint from a brick wall. The process is fast and environmentally friendly, restoring the surface instantly.</p></div>
         </div>
-
         <div class="video-card">
             <div class="video-embed-wrapper">
-                <div id="player12"></div>
+                <img loading="lazy" src="https://img.youtube.com/vi/zQlu-oytHxs/hqdefault.jpg" alt="Heavy Machinery Parts thumbnail" class="video-thumbnail">
+                <div class="play-button"></div>
+                <div class="youtube-player-placeholder" id="player12" data-video-id="zQlu-oytHxs"></div>
             </div>
-            <div class="card-content">
-                <h3>Heavy Machinery Parts</h3>
-                <p>Cleaning thick grease from heavy industrial parts, improving performance and making maintenance easier.</p>
-            </div>
+            <div class="card-content"><h3>Heavy Machinery Parts</h3><p>Cleaning thick grease from heavy industrial parts, improving performance and making maintenance easier.</p></div>
         </div>
-
         <div class="video-card">
             <div class="video-embed-wrapper">
-                <div id="player13"></div>
+                <img loading="lazy" src="https://img.youtube.com/vi/edEBbl8Wr8k/hqdefault.jpg" alt="Marine & Boat Hull Care thumbnail" class="video-thumbnail">
+                <div class="play-button"></div>
+                <div class="youtube-player-placeholder" id="player13" data-video-id="edEBbl8Wr8k"></div>
             </div>
-            <div class="card-content">
-                <h3>Marine & Boat Hull Care</h3>
-                <p>Effectively removing barnacles and algae from a boat hull without damaging the gel-coat. A superior, eco-friendly marine solution.</p>
-            </div>
+            <div class="card-content"><h3>Marine & Boat Hull Care</h3><p>Effectively removing barnacles and algae from a boat hull without damaging the gel-coat. A superior, eco-friendly marine solution.</p></div>
         </div>
-
         <div class="video-card">
             <div class="video-embed-wrapper">
-                <div id="player14"></div>
+                <img loading="lazy" src="https://img.youtube.com/vi/jNCZpGXGzbA/hqdefault.jpg" alt="Factory Equipment Maintenance thumbnail" class="video-thumbnail">
+                <div class="play-button"></div>
+                <div class="youtube-player-placeholder" id="player14" data-video-id="jNCZpGXGzbA"></div>
             </div>
-            <div class="card-content">
-                <h3>Factory Equipment Maintenance</h3>
-                <p>Routine cleaning on a factory production line. Cleaning in-place saves hours of disassembly and reassembly time.</p>
-            </div>
+            <div class="card-content"><h3>Factory Equipment Maintenance</h3><p>Routine cleaning on a factory production line. Cleaning in-place saves hours of disassembly and reassembly time.</p></div>
         </div>
-
         <div class="video-card">
             <div class="video-embed-wrapper">
-                <div id="player15"></div>
+                <img loading="lazy" src="https://img.youtube.com/vi/Ntwmg45nu1g/hqdefault.jpg" alt="Welding Robot Cleanup thumbnail" class="video-thumbnail">
+                <div class="play-button"></div>
+                <div class="youtube-player-placeholder" id="player15" data-video-id="Ntwmg45nu1g"></div>
             </div>
-            <div class="card-content">
-                <h3>Welding Robot Cleanup</h3>
-                <p>Removing weld slag and spatter from an automated welding robot to ensure precision and prevent malfunctions.</p>
-            </div>
+            <div class="card-content"><h3>Welding Robot Cleanup</h3><p>Removing weld slag and spatter from an automated welding robot to ensure precision and prevent malfunctions.</p></div>
         </div>
-
         <div class="video-card">
             <div class="video-embed-wrapper">
-                <div id="player16"></div>
+                <img loading="lazy" src="https://img.youtube.com/vi/bUTnSbFdzuw/hqdefault.jpg" alt="Tire Mold Residue Removal thumbnail" class="video-thumbnail">
+                <div class="play-button"></div>
+                <div class="youtube-player-placeholder" id="player16" data-video-id="bUTnSbFdzuw"></div>
             </div>
-            <div class="card-content">
-                <h3>Tire Mold Residue Removal</h3>
-                <p>Cleaning residue from a tire manufacturing mold to ensure product quality and extend the life of the mold.</p>
-            </div>
+            <div class="card-content"><h3>Tire Mold Residue Removal</h3><p>Cleaning residue from a tire manufacturing mold to ensure product quality and extend the life of the mold.</p></div>
         </div>
 
     </main>
@@ -469,105 +417,83 @@
 
     <script>
     document.addEventListener('DOMContentLoaded', function() {
-
+        
         // ===================================
-        //      JavaScript Logic
+        //      JavaScript Logic with Lazy Loading
         // ===================================
-
-        // --- Video Player Data ---
-        const videoData = {
-            'player1': 'O3q3MdyWq-Q',
-            'player2': 'yqbW74At4sg',
-            'player3': '2fJ7pMnEZho',
-            'player4': 'PLXOymuoXV0',
-            'player5': 'GvjZF6CPvkY',
-            'player6': 'GuWz97IBj1o',
-            'player7': 'EmaF8GN4A74',
-            'player8': 'Dx01o_czTgY',
-            'player9': 'RLolZB-AwuY',
-            'player10': '686wJBeEnsc',
-            'player11': 'vYTWuO0S_YA',
-            'player12': 'zQlu-oytHxs',
-            'player13': 'edEBbl8Wr8k',
-            'player14': 'jNCZpGXGzbA',
-            'player15': 'Ntwmg45nu1g',
-            'player16': 'bUTnSbFdzuw'
-        };
 
         let players = {};
-        let activePlayer = null;
+        const isMobile = window.innerWidth <= 768;
 
-        // This function is called by the YouTube API when it's ready
-        window.onYouTubeIframeAPIReady = function() {
-            for (const playerId in videoData) {
-                if (document.getElementById(playerId)) {
-                    players[playerId] = new YT.Player(playerId, {
-                        height: '100%',
-                        width: '100%',
-                        videoId: videoData[playerId],
-                        playerVars: {
-                            'playsinline': 1,
-                            'autoplay': 0,
-                            'controls': 0,
-                            'showinfo': 0,
-                            'rel': 0,
-                            'loop': 1,
-                            'playlist': videoData[playerId] // Required for looping single video
-                        },
-                        events: {
-                            'onReady': onPlayerReady
-                        }
-                    });
-                }
-            }
-        };
+        // This function creates a player when needed.
+        function createPlayer(placeholder) {
+            const videoId = placeholder.dataset.videoId;
+            if (!videoId || players[placeholder.id]) return; // Exit if no ID or player already exists
 
-        function onPlayerReady(event) {
-            event.target.mute(); // Mute all players by default
-        }
+            const wrapper = placeholder.parentElement;
+            wrapper.classList.add('video-loaded');
 
-        // --- Intersection Observer for Autoplay on Mobile ---
-        const observerOptions = {
-            root: document.querySelector('.video-gallery-container'),
-            rootMargin: '0px',
-            threshold: 0.75 // Trigger when 75% of the video is visible
-        };
-
-        const observerCallback = (entries, observer) => {
-            entries.forEach(entry => {
-                const playerDiv = entry.target.querySelector('div[id^="player"]');
-                if (!playerDiv) return;
-
-                const targetPlayerId = playerDiv.id;
-                const player = players[targetPlayerId];
-
-                if (!player) return;
-
-                if (entry.isIntersecting) {
-                    if (typeof player.playVideo === 'function') {
-                        player.playVideo();
-                        activePlayer = player;
-                    }
-                } else {
-                    if (typeof player.pauseVideo === 'function') {
-                        player.pauseVideo();
-                         if (activePlayer === player) {
-                            activePlayer = null;
-                        }
-                    }
+            players[placeholder.id] = new YT.Player(placeholder.id, {
+                videoId: videoId,
+                playerVars: {
+                    'playsinline': 1,
+                    'autoplay': 1, // Autoplay when loaded
+                    'controls': isMobile ? 0 : 1,
+                    'showinfo': 0, 'rel': 0,
+                    'loop': 1, 'playlist': videoId
+                },
+                events: {
+                    'onReady': (event) => event.target.mute()
                 }
             });
-        };
+        }
 
-        // --- Initialize Observer on Mobile Only ---
-        if (window.innerWidth <= 768) {
-            const observer = new IntersectionObserver(observerCallback, observerOptions);
+        // --- Desktop: Click to load and play ---
+        if (!isMobile) {
+            document.querySelectorAll('.video-embed-wrapper').forEach(wrapper => {
+                wrapper.addEventListener('click', function() {
+                    const placeholder = this.querySelector('.youtube-player-placeholder');
+                    createPlayer(placeholder);
+                }, { once: true }); // The click listener only fires once
+            });
+        }
+
+        // --- Mobile: Lazy load and autoplay/pause on scroll ---
+        if (isMobile) {
             const videoCards = document.querySelectorAll('.video-card');
-            videoCards.forEach(card => {
-                observer.observe(card);
-            });
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    const card = entry.target;
+                    const placeholder = card.querySelector('.youtube-player-placeholder');
+                    const playerId = placeholder.id;
+
+                    if (entry.isIntersecting) {
+                        // If the card is in view
+                        if (!players[playerId]) {
+                            // And the player hasn't been created yet, create it.
+                            createPlayer(placeholder);
+                        } else {
+                            // If the player already exists, just play it.
+                            players[playerId].playVideo();
+                        }
+                    } else {
+                        // If the card is out of view and the player exists, pause it.
+                        if (players[playerId] && typeof players[playerId].pauseVideo === 'function') {
+                            players[playerId].pauseVideo();
+                        }
+                    }
+                });
+            }, { threshold: 0.75 }); // 75% of the card must be visible
+
+            videoCards.forEach(card => observer.observe(card));
         }
+
+        // The onYouTubeIframeAPIReady function is required by the YouTube API,
+        // but since we are creating players on demand, it can be left empty.
+        window.onYouTubeIframeAPIReady = function() {};
     });
     </script>
 </body>
 </html>
+pc端视频播放的时候没有声音，手机端有声音，怎么修改
