@@ -1,0 +1,4 @@
+User-agent: *
+Disallow:
+
+Sitemap: https://www.dry-ice-blasting-machine.com/sitemap.xml
