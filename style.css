@@ -1679,7 +1679,7 @@ footer {
 /* ===== NEW: Subscription Section Styles ===== */
 .subscription-section {
     background: #000;
-    padding: 100px 0;
+    padding: 70px 0;
 }
 
 .subscription-container {
@@ -1769,7 +1769,7 @@ footer {
            display: flex;
      }
     .section {
-        padding: 80px 0;
+        padding: 60px 0;
     }
 
     .container {
