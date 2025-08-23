@@ -259,9 +259,7 @@
             padding: 40px;
             border-radius: 24px;
             box-shadow: 0 16px 64px rgba(0, 0, 0, 0.08);
-            /* --- MODIFICATION START --- */
-            min-height: 500px; /* Ensures chart has enough space to render properly */
-            /* --- MODIFICATION END --- */
+            min-height: 500px;
         }
 
         /* Compressor Types Grid */
@@ -304,10 +302,10 @@
         .fade-in.visible { opacity: 1; transform: translateY(0); }
 
         /* Responsive Styles */
-        @media (max-width: 768px) {
+        @media (max-width: 992px) {
             .grid-2-col, .types-grid { grid-template-columns: 1fr; }
             .image-content { margin-top: 40px; }
-            .recommendation-grid {
+            .recommendation-grid { 
                 grid-template-columns: repeat(2, 1fr);
                 row-gap: 30px;
             }
@@ -319,12 +317,12 @@
             .calculator-wrapper { padding: 30px; }
             .metric-value { font-size: 48px; }
             .metric-label { font-size: 20px; }
-            .chart-container {
+             .chart-container {
                 padding: 20px;
             }
         }
          @media (max-width: 576px) {
-            .recommendation-grid {
+            .recommendation-grid { 
                 grid-template-columns: 1fr;
             }
          }
@@ -335,7 +333,7 @@
     <nav class="navbar">
         <div class="nav-container">
             <div class="logo">AIR COMPRESSOR GUIDE</div>
-            <a href="/index.html" class="nav-link">More</a>
+            <a href="/index.html" class="nav-link">Return to Main Site</a>
         </div>
     </nav>
 
@@ -565,11 +563,10 @@
                 }
             });
 
-            // --- MODIFICATION START: Simplified Chart.js Data Visualization ---
+            // --- Chart.js Data Visualization ---
             const ctx = document.getElementById('cfm-chart').getContext('2d');
             
             new Chart(ctx, {
-                // Always use a horizontal bar chart for better readability
                 type: 'bar',
                 data: {
                     labels: ['Electronics Cleaning', 'Auto Detailing', 'Mold Remediation', 'Food Processing', 'Paint Stripping', 'Heavy Industrial Grease'],
@@ -582,7 +579,6 @@
                     }]
                 },
                 options: {
-                    // Set the index axis to 'y' to make the bar chart horizontal
                     indexAxis: 'y',
                     responsive: true,
                     maintainAspectRatio: false,
@@ -598,19 +594,18 @@
                         y: {
                             beginAtZero: true,
                             title: {
-                                display: false, // The chart title is descriptive enough
+                                display: false,
                             }
                         },
                         x: {
                            title: {
-                               display: true,
-                               text: 'Cubic Feet per Minute (CFM)'
+                                display: true,
+                                text: 'Cubic Feet per Minute (CFM)'
                            }
                         }
                     }
                 }
             });
-            // --- MODIFICATION END ---
 
             // --- Intersection Observer for Fade-in Animations ---
             const observer = new IntersectionObserver((entries) => {
