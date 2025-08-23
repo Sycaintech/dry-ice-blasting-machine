@@ -15,10 +15,63 @@
         html { scroll-behavior: smooth; }
 
         /* General page styles */
-        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; line-height: 1.6; color: #333; max-width: 900px; margin: 20px auto; padding: 0 20px; background-color: #f9f9f9; }
+        body { 
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; 
+            line-height: 1.6; 
+            color: #333; 
+            margin: 0; /* Removed default body margin */
+            padding: 0; 
+            background-color: #f9f9f9; 
+        }
+
+        /* Header and Navigation Styles */
+        .main-header {
+            background-color: #f9f9f9; /* Match page background */
+            padding: 15px 0;
+            border-bottom: 1px solid #e0e0e0;
+            margin-bottom: 20px;
+            width: 100%;
+        }
+
+        .nav-container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: flex-start; /* Align button to the left */
+            align-items: center;
+        }
+
+        .home-button {
+            background-color: #000; /* Black background */
+            color: #fff; /* White text */
+            padding: 8px 15px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 0.9em;
+            transition: opacity 0.3s ease;
+        }
+
+        .home-button:hover {
+            opacity: 0.8;
+        }
+
+        /* Main container wrapper */
+        .main-content {
+            max-width: 900px; 
+            margin: 20px auto; 
+            padding: 0 20px;
+        }
 
         /* Main container styles */
-        .container { background-color: #fff; padding: 25px; border-radius: 8px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); margin-bottom: 30px; }
+        .container { 
+            background-color: #fff; 
+            padding: 25px; 
+            border-radius: 8px; 
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); 
+            margin-bottom: 30px; 
+        }
 
         /* Header styles */
         h1, h2, h3 { color: #1a237e; border-bottom: 2px solid #3f51b5; padding-bottom: 10px; text-align: center; }
@@ -53,96 +106,80 @@
         .view-product-btn { display: inline-block; margin-top: 15px; padding: 10px 25px; font-size: 1em; font-weight: bold; color: #fff; background-color: #43a047; border-radius: 5px; text-decoration: none; transition: background-color 0.3s ease; }
         .view-product-btn:hover { background-color: #388e3c; }
 
-        /* Back to Home Button Styles */
-        .back-to-home-btn {
-            position: fixed;
-            bottom: 25px;
-            right: 25px;
-            padding: 10px 20px;
-            background-color: #5c6bc0; /* A complementary indigo color */
-            color: white;
-            text-decoration: none;
-            border-radius: 5px;
-            font-size: 0.95em;
-            font-weight: bold;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
-            transition: background-color 0.3s ease, transform 0.2s ease;
-            z-index: 1000;
-        }
-
-        .back-to-home-btn:hover {
-            background-color: #3f51b5; /* Matching the main button color on hover */
-            transform: translateY(-2px);
-        }
-
         /* Responsive design for smaller screens */
         @media (max-width: 600px) { .calculator-form { grid-template-columns: 1fr; } }
     </style>
 </head>
 <body>
 
-<div class="container">
-    <h1>Dry Ice Blasting Total Cost of Ownership (TCO) Calculator</h1>
-    <p>Based on your project needs, enter the information below to compare the annual costs of "Hiring Professionals" versus "Buying Your Own Equipment".</p>
+<header class="main-header">
+    <div class="nav-container">
+        <a href="https://www.dry-ice-blasting-machine.com" class="home-button">Back to Home</a>
+    </div>
+</header>
 
-    <form id="tco-calculator" onsubmit="return false;">
-        <h2>Step 1: Enter Your Project Information</h2>
-        <div class="calculator-form">
-            <div class="input-group">
-                <label for="hoursPerJob">Estimated Hours per Job</label>
-                <input type="number" id="hoursPerJob" value="8" min="1">
-            </div>
-            <div class="input-group">
-                <label for="jobsPerYear">Number of Jobs per Year</label>
-                <input type="number" id="jobsPerYear" value="12" min="1">
-            </div>
-        </div>
+<div class="main-content">
+    <div class="container">
+        <h1>Dry Ice Blasting Total Cost of Ownership (TCO) Calculator</h1>
+        <p>Based on your project needs, enter the information below to compare the annual costs of "Hiring Professionals" versus "Buying Your Own Equipment".</p>
 
-        <h2>Step 2: Adjust DIY Equipment & Consumable Costs</h2>
-        <div class="calculator-form">
-            <div class="input-group fixed-cost-display">
-                <label>AI30 Dry Ice Blaster Cost (Original price)</label>
-                <div class="cost-value">$3,099</div>
-            </div>
-            <div class="input-group">
-                <label for="compressorCost">Air Compressor Cost ($5,000 - $10,000)</label>
-                 <div class="range-container">
-                    <input type="range" id="compressorCost" min="5000" max="10000" step="500" value="5000">
-                    <span class="range-value" id="compressorCostValue">$5,000</span>
+        <form id="tco-calculator" onsubmit="return false;">
+            <h2>Step 1: Enter Your Project Information</h2>
+            <div class="calculator-form">
+                <div class="input-group">
+                    <label for="hoursPerJob">Estimated Hours per Job</label>
+                    <input type="number" id="hoursPerJob" value="8" min="1">
+                </div>
+                <div class="input-group">
+                    <label for="jobsPerYear">Number of Jobs per Year</label>
+                    <input type="number" id="jobsPerYear" value="12" min="1">
                 </div>
             </div>
-            <div class="input-group">
-                <label for="dryIceCost">Dry Ice Cost per Pound ($)</label>
-                <input type="number" id="dryIceCost" value="1.00" min="0.5" step="0.1">
-            </div>
-            <div class="input-group">
-                <label for="maintenanceCost">Annual Maintenance & Other Costs ($)</label>
-                <input type="number" id="maintenanceCost" value="250" min="0">
-            </div>
-        </div>
 
-        <button type="button" class="calculate-btn" onclick="calculateTCO()">Calculate Annual Total Cost</button>
-    </form>
+            <h2>Step 2: Adjust DIY Equipment & Consumable Costs</h2>
+            <div class="calculator-form">
+                <div class="input-group fixed-cost-display">
+                    <label>AI30 Dry Ice Blaster Cost (Original price)</label>
+                    <div class="cost-value">$3,099</div>
+                </div>
+                <div class="input-group">
+                    <label for="compressorCost">Air Compressor Cost ($5,000 - $10,000)</label>
+                     <div class="range-container">
+                        <input type="range" id="compressorCost" min="5000" max="10000" step="500" value="5000">
+                        <span class="range-value" id="compressorCostValue">$5,000</span>
+                    </div>
+                </div>
+                <div class="input-group">
+                    <label for="dryIceCost">Dry Ice Cost per Pound ($)</label>
+                    <input type="number" id="dryIceCost" value="1.00" min="0.5" step="0.1">
+                </div>
+                <div class="input-group">
+                    <label for="maintenanceCost">Annual Maintenance & Other Costs ($)</label>
+                    <input type="number" id="maintenanceCost" value="250" min="0">
+                </div>
+            </div>
 
-    <div id="results">
-        <h2>Cost Analysis Results</h2>
-        <div class="result-section professional-cost">
-            <span class="cost-title">Hiring Professionals: Annual Total Cost</span>
-            <span class="cost-value" id="professionalTotalCost"></span>
-        </div>
-        <div class="result-section diy-cost">
-            <span class="cost-title">DIY: Annual Total Cost (Equipment + Operations)</span>
-            <span class="cost-value" id="diyTotalCost"></span>
-        </div>
-        <div id="summary"></div>
-        <div id="recommendation-box">
-            <p><strong>Highly Recommended!</strong> Based on your usage frequency, purchasing your own blaster is a more economical and flexible long-term investment.</p>
-            <a href="https://www.dry-ice-blasting-machine.com" class="view-product-btn">Learn More</a>
+            <button type="button" class="calculate-btn" onclick="calculateTCO()">Calculate Annual Total Cost</button>
+        </form>
+
+        <div id="results">
+            <h2>Cost Analysis Results</h2>
+            <div class="result-section professional-cost">
+                <span class="cost-title">Hiring Professionals: Annual Total Cost</span>
+                <span class="cost-value" id="professionalTotalCost"></span>
+            </div>
+            <div class="result-section diy-cost">
+                <span class="cost-title">DIY: Annual Total Cost (Equipment + Operations)</span>
+                <span class="cost-value" id="diyTotalCost"></span>
+            </div>
+            <div id="summary"></div>
+            <div id="recommendation-box">
+                <p><strong>Highly Recommended!</strong> Based on your usage frequency, purchasing your own blaster is a more economical and flexible long-term investment.</p>
+                <a href="https://www.dry-ice-blasting-machine.com" class="view-product-btn">Learn More</a>
+            </div>
         </div>
     </div>
 </div>
-
-<a href="https://www.dry-ice-blasting-machine.com" class="back-to-home-btn">Back to Home</a>
 
 <script>
     // Helper to format numbers as USD currency
