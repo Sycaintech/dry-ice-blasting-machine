@@ -18,7 +18,6 @@
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
 
-
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Air Compressor Guide for Dry Ice Blasting | Aiolith">
     <meta name="twitter:description" content="A detailed guide to selecting the right air compressor for your dry ice blasting machine. Understand PSI, CFM, and explore our interactive calculator to find the perfect match.">
@@ -260,6 +259,9 @@
             padding: 40px;
             border-radius: 24px;
             box-shadow: 0 16px 64px rgba(0, 0, 0, 0.08);
+            /* --- MODIFICATION START --- */
+            min-height: 500px; /* Ensures chart has enough space to render properly */
+            /* --- MODIFICATION END --- */
         }
 
         /* Compressor Types Grid */
@@ -317,6 +319,9 @@
             .calculator-wrapper { padding: 30px; }
             .metric-value { font-size: 48px; }
             .metric-label { font-size: 20px; }
+            .chart-container {
+                padding: 20px;
+            }
         }
          @media (max-width: 576px) {
             .recommendation-grid {
@@ -560,66 +565,52 @@
                 }
             });
 
-            // --- Chart.js Data Visualization ---
+            // --- MODIFICATION START: Simplified Chart.js Data Visualization ---
             const ctx = document.getElementById('cfm-chart').getContext('2d');
-            let cfmChart;
-
-            function createOrUpdateChart() {
-                if (cfmChart) {
-                    cfmChart.destroy();
-                }
-
-                const isMobile = window.innerWidth < 768;
-                const chartType = 'bar';
-                const indexAxis = isMobile ? 'y' : 'x';
-                const yAxisTitle = isMobile ? 'Application' : 'CFM';
-                const xAxisTitle = isMobile ? 'Cubic Feet per Minute (CFM)' : 'Application';
-
-                cfmChart = new Chart(ctx, {
-                    type: chartType,
-                    data: {
-                        labels: ['Electronics Cleaning', 'Auto Detailing', 'Mold Remediation', 'Food Processing', 'Paint Stripping', 'Heavy Industrial Grease'],
-                        datasets: [{
-                            label: 'Recommended Minimum CFM',
-                            data: [80, 150, 180, 200, 300, 450],
-                            backgroundColor: 'rgba(120, 26, 33, 0.8)',
-                            borderColor: 'rgba(120, 26, 33, 1)',
-                            borderWidth: 1
-                        }]
-                    },
-                    options: {
-                        indexAxis: indexAxis,
-                        responsive: true,
-                        maintainAspectRatio: false,
-                        plugins: {
-                            title: {
-                                display: true,
-                                text: 'Air Volume (CFM) by Cleaning Application',
-                                font: { size: 18, family: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif' }
-                            },
-                            legend: { display: false }
+            
+            new Chart(ctx, {
+                // Always use a horizontal bar chart for better readability
+                type: 'bar',
+                data: {
+                    labels: ['Electronics Cleaning', 'Auto Detailing', 'Mold Remediation', 'Food Processing', 'Paint Stripping', 'Heavy Industrial Grease'],
+                    datasets: [{
+                        label: 'Recommended Minimum CFM',
+                        data: [80, 150, 180, 200, 300, 450],
+                        backgroundColor: 'rgba(120, 26, 33, 0.8)',
+                        borderColor: 'rgba(120, 26, 33, 1)',
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    // Set the index axis to 'y' to make the bar chart horizontal
+                    indexAxis: 'y',
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        title: {
+                            display: true,
+                            text: 'Air Volume (CFM) by Cleaning Application',
+                            font: { size: 18, family: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif' }
                         },
-                        scales: {
-                            y: {
-                                beginAtZero: true,
-                                title: {
-                                    display: true,
-                                    text: yAxisTitle
-                                }
-                            },
-                            x: {
-                               title: {
-                                    display: true,
-                                    text: xAxisTitle
-                               }
+                        legend: { display: false }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            title: {
+                                display: false, // The chart title is descriptive enough
                             }
+                        },
+                        x: {
+                           title: {
+                               display: true,
+                               text: 'Cubic Feet per Minute (CFM)'
+                           }
                         }
                     }
-                });
-            }
-
-            createOrUpdateChart();
-            window.addEventListener('resize', createOrUpdateChart);
+                }
+            });
+            // --- MODIFICATION END ---
 
             // --- Intersection Observer for Fade-in Animations ---
             const observer = new IntersectionObserver((entries) => {
