@@ -10,10 +10,7 @@
     <meta name="keywords" content="dry ice blaster TCO">
     <meta name="robots" content="index, follow">
     <link rel="canonical" href="https://www.dry-ice-blasting-machine.com">
-
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
-
     <style>
         /* Smooth scroll effect for the page */
         html { scroll-behavior: smooth; }
@@ -34,9 +31,9 @@
             padding: 15px 0;
             border-bottom: 1px solid #e0e0e0;
             width: 100%;
-            position: sticky; /* Make the header sticky */
-            top: 0; /* Stick to the top of the viewport */
-            z-index: 1000; /* Ensure it stays on top of other content */
+            position: sticky;
+            top: 0;
+            z-index: 1000;
         }
 
         .nav-container {
@@ -49,18 +46,18 @@
         }
 
         .home-button {
-            background-color: #3f51b5; /* Match the 'Calculate' button color */
+            background-color: #3f51b5;
             color: #fff;
             padding: 8px 15px;
             border-radius: 5px;
             text-decoration: none;
             font-weight: bold;
             font-size: 0.9em;
-            transition: background-color: 0.3s ease;
+            transition: background-color 0.3s ease;
         }
 
         .home-button:hover {
-            background-color: #303f9f; /* Match the 'Calculate' button hover color */
+            background-color: #303f9f;
         }
 
         /* Main content wrapper */
@@ -89,41 +86,7 @@
         .fixed-cost-display { background-color: #f5f5f5; padding: 10px; border-radius: 5px; border: 1px solid #e0e0e0; }
         .fixed-cost-display .cost-value { font-size: 1.2em; font-weight: bold; color: #1a237e; margin-top: 4px; }
         label { font-weight: bold; margin-bottom: 5px; color: #555; }
-        input, input::placeholder {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-            font-size: 1em;
-            color: #333;
-        }
-        input#compressorCost { /* Hide the range input visually in the PDF */
-            -webkit-appearance: none;
-            width: 100%;
-            height: 10px;
-            background: #d3d3d3;
-            border-radius: 5px;
-            outline: none;
-            opacity: 0; /* Make it visually hidden in PDF */
-            pointer-events: none; /* Ensure it doesn't interfere with clicks */
-        }
-        input#compressorCost::-webkit-slider-thumb {
-            -webkit-appearance: none;
-            appearance: none;
-            width: 15px;
-            height: 15px;
-            background: #3f51b5;
-            cursor: pointer;
-            border-radius: 50%;
-        }
-        input#compressorCost::-moz-range-thumb {
-            width: 15px;
-            height: 15px;
-            background: #3f51b5;
-            cursor: pointer;
-            border-radius: 50%;
-            border: none;
-        }
-        input#hoursPerJob, input#jobsPerYear, input#dryIceCost, input#maintenanceCost {
-            padding: 10px; border-radius: 5px; border: 1px solid #ccc; width: 100%; box-sizing: border-box;
-        }
+        input[type="number"], input[type="range"] { padding: 10px; border-radius: 5px; border: 1px solid #ccc; width: 100%; box-sizing: border-box; }
         .range-container { display: flex; align-items: center; gap: 10px; }
         .range-value { font-weight: bold; color: #3f51b5; min-width: 70px; text-align: right; }
 
@@ -133,7 +96,7 @@
 
         /* Results display area styles */
         #results { margin-top: 30px; padding: 20px; background-color: #e8eaf6; border-radius: 8px; border-left: 5px solid #3f51b5; display: none; }
-        .result-section { display: flex; justify-content: space-between; align-items: center; padding: 15px; margin: 10px 0; border-radius: 5px; }
+        .result-section { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; padding: 15px; margin: 10px 0; border-radius: 5px; } /* 修改: 允许换行 */
         .professional-cost { background-color: #fff3e0; }
         .diy-cost { background-color: #e0f2f1; }
         .cost-title { font-weight: bold; font-size: 1.1em; }
@@ -143,56 +106,36 @@
         .summary-expensive { background-color: #ffcdd2; color: #b71c1c; }
         #recommendation-box { display: none; margin-top: 20px; padding: 20px; background-color: #e8f5e9; border: 1px solid #66bb6a; border-radius: 8px; text-align: center; }
         #recommendation-box p { font-size: 1.1em; color: #2e7d32; margin-top: 0; }
-        .view-product-btn { display: inline-block; margin-top: 15px; padding: 10px 25px; font-size: 1em; font-weight: bold; color: #fff; background-color: #43a047; border-radius: 5px; text-decoration: none; transition: background-color: 0.3s ease; }
+        .view-product-btn { display: inline-block; margin-top: 15px; padding: 10px 25px; font-size: 1em; font-weight: bold; color: #fff; background-color: #43a047; border-radius: 5px; text-decoration: none; transition: background-color 0.3s ease; }
         .view-product-btn:hover { background-color: #388e3c; }
 
-        /* New styles for Chart and PDF Button */
-        #chart-container { padding: 20px 0; }
-        canvas { max-width: 100%; }
-        #savePdfBtn {
-            display: none; /* Hidden by default */
-            background-color: #2e7d32; /* Green color to stand out */
-            width: 100%;
-            margin-top: 20px;
-        }
-        #savePdfBtn:hover { background-color: #1b5e20; }
-
-        /* Styles for PDF Watermark */
-        .pdf-watermark {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%) rotate(-45deg);
-            font-size: 2em;
-            color: #ccc;
-            opacity: 0.5;
-            width: 100%;
-            text-align: center;
-            z-index: -1; /* Ensure it's behind the content */
-            pointer-events: none; /* Avoid interfering with content clicks */
-        }
-
-        /* Styles specifically for the PDF content */
-        .pdf-content {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-            line-height: 1.6;
-            color: #333;
+        .chart-container {
+            margin-top: 30px;
             padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
         }
-        .pdf-title { text-align: center; color: #1a237e; }
-        .pdf-section-title { color: #3f51b5; border-bottom: 1px solid #e0e0e0; padding-bottom: 5px; margin-top: 15px; }
-        .pdf-input-row { display: flex; justify-content: space-between; margin-bottom: 8px; }
-        .pdf-label { font-weight: bold; width: 50%; }
-        .pdf-value { width: 50%; text-align: right; }
-        .pdf-result-section { display: flex; justify-content: space-between; padding: 10px 0; border-top: 1px solid #f0f0f0; }
-        .pdf-cost-title { font-weight: bold; }
-        .pdf-cost-value { font-weight: bold; }
-        .pdf-summary { text-align: center; margin-top: 15px; font-style: italic; }
-        .pdf-recommendation { text-align: center; margin-top: 15px; font-weight: bold; color: #2e7d32; }
-        .pdf-chart-img { max-width: 100%; margin: 15px 0; }
 
-        /* Hide the standard content when generating PDF */
-        .generating-pdf .container { display: none; }
+        /* 新增: 成本构成明细样式 */
+        .cost-breakdown {
+            width: 100%;
+            margin-top: 15px;
+            padding-top: 10px;
+            border-top: 1px solid rgba(0, 0, 0, 0.1);
+            font-size: 0.9em;
+        }
+        .cost-breakdown p {
+            margin: 5px 0;
+            display: flex;
+            justify-content: space-between;
+        }
+        .cost-breakdown p span:last-child {
+            font-weight: bold;
+        }
+
+        /* Responsive design for smaller screens */
+        @media (max-width: 600px) { .calculator-form { grid-template-columns: 1fr; } }
     </style>
 </head>
 <body>
@@ -229,10 +172,10 @@
                 </div>
                 <div class="input-group">
                     <label for="compressorCost">Air Compressor Cost ($5,000 - $10,000)</label>
-                    <div class="range-container">
-                        <input type="range" id="compressorCost" min="5000" max="10000" step="500" value="5000">
-                        <span class="range-value" id="compressorCostValue">$5,000</span>
-                    </div>
+                     <div class="range-container">
+                         <input type="range" id="compressorCost" min="5000" max="10000" step="500" value="5000">
+                         <span class="range-value" id="compressorCostValue">$5,000</span>
+                     </div>
                 </div>
                 <div class="input-group">
                     <label for="dryIceCost">Dry Ice Cost per Pound ($)</label>
@@ -249,34 +192,31 @@
 
         <div id="results">
             <h2>Cost Analysis Results</h2>
-
-            <div id="chart-container">
-                <canvas id="costChart"></canvas>
-            </div>
-
             <div class="result-section professional-cost">
                 <span class="cost-title">Hiring Professionals: Annual Total Cost</span>
                 <span class="cost-value" id="professionalTotalCost"></span>
+                <div class="cost-breakdown" id="professionalBreakdown"></div>
             </div>
             <div class="result-section diy-cost">
                 <span class="cost-title">DIY: Annual Total Cost (Equipment + Operations)</span>
                 <span class="cost-value" id="diyTotalCost"></span>
+                <div class="cost-breakdown" id="diyBreakdown"></div>
             </div>
+
+            <div class="chart-container">
+                <canvas id="costChart"></canvas>
+            </div>
+
             <div id="summary"></div>
             <div id="recommendation-box">
                 <p><strong>Highly Recommended!</strong> Based on your usage frequency, purchasing your own blaster is a more economical and flexible long-term investment.</p>
                 <a href="https://www.dry-ice-blasting-machine.com" class="view-product-btn">Learn More</a>
             </div>
-
-            <button id="savePdfBtn" class="calculate-btn" onclick="saveAsPDF()">Save Results as PDF</button>
         </div>
     </div>
 </div>
 
 <script>
-    // Global variable to hold the chart instance
-    let myCostChart;
-
     // Helper to format numbers as USD currency
     const formatter = new Intl.NumberFormat('en-US', {
         style: 'currency', currency: 'USD', minimumFractionDigits: 0, maximumFractionDigits: 0,
@@ -287,21 +227,22 @@
     const compressorCostValue = document.getElementById('compressorCostValue');
     compressorCostSlider.oninput = function() { compressorCostValue.textContent = formatter.format(this.value); }
 
-    // Manually update the slider's initial value display on page load
     document.addEventListener('DOMContentLoaded', () => {
         compressorCostValue.textContent = formatter.format(compressorCostSlider.value);
     });
 
+    let costChart;
+
     function calculateTCO() {
         // Get user inputs
-        const hoursPerJob = parseFloat(document.getElementById('hoursPerJob').value) || 0;
-        const jobsPerYear = parseFloat(document.getElementById('jobsPerYear').value) || 0;
-        const compressorCost = parseFloat(document.getElementById('compressorCost').value) || 0;
-        const dryIceCostPerPound = parseFloat(document.getElementById('dryIceCost').value) || 0;
-        const maintenanceCost = parseFloat(document.getElementById('maintenanceCost').value) || 0;
+        const hoursPerJob = parseFloat(document.getElementById('hoursPerJob').value);
+        const jobsPerYear = parseFloat(document.getElementById('jobsPerYear').value);
+        const compressorCost = parseFloat(document.getElementById('compressorCost').value);
+        const dryIceCostPerPound = parseFloat(document.getElementById('dryIceCost').value);
+        const maintenanceCost = parseFloat(document.getElementById('maintenanceCost').value);
 
         // Fixed costs and rates
-        const machineCost = 3099; // Hardcoded machine cost
+        const machineCost = 3099;
         const professionalHourlyRate = 395;
         const dryIceConsumptionPerMinute = 0.66;
 
@@ -316,190 +257,77 @@
         const annualOperationalCost = annualDryIceCost + maintenanceCost;
         const diyTotalCost = upfrontCost + annualOperationalCost;
 
-        // Get elements for displaying results
-        const resultsDiv = document.getElementById('results');
-        const summaryDiv = document.getElementById('summary');
-        const recommendationBox = document.getElementById('recommendation-box');
-        const savePdfBtn = document.getElementById('savePdfBtn');
-
-        // Display results on the page
+        // Display main results
         document.getElementById('professionalTotalCost').textContent = formatter.format(professionalTotalCost);
         document.getElementById('diyTotalCost').textContent = formatter.format(diyTotalCost);
-        resultsDiv.style.display = 'block';
-        savePdfBtn.style.display = 'block';
+        document.getElementById('results').style.display = 'block';
 
-        // Generate summary and recommendation
+        // --- 新增: 填充成本构成明细 ---
+        const professionalBreakdownDiv = document.getElementById('professionalBreakdown');
+        professionalBreakdownDiv.innerHTML = `
+            <p><span>Annual Service Hours:</span> <span>${totalHoursPerYear.toLocaleString()} hrs</span></p>
+            <p><span>Hourly Rate (Estimate):</span> <span>${formatter.format(professionalHourlyRate)} / hr</span></p>
+        `;
+
+        const diyBreakdownDiv = document.getElementById('diyBreakdown');
+        diyBreakdownDiv.innerHTML = `
+            <strong>First-Year Cost Breakdown:</strong>
+            <p><span>Upfront Equipment Cost:</span> <span>${formatter.format(upfrontCost)}</span></p>
+            <p style="padding-left: 15px; font-size: 0.95em;"><span>└ Blaster + Compressor</span></p>
+            <p><span>Annual Operational Cost:</span> <span>${formatter.format(annualOperationalCost)}</span></p>
+            <p style="padding-left: 15px; font-size: 0.95em;"><span>└ Dry Ice Cost:</span> <span>${formatter.format(annualDryIceCost)}</span></p>
+            <p style="padding-left: 15px; font-size: 0.95em;"><span>└ Maintenance etc.:</span> <span>${formatter.format(maintenanceCost)}</span></p>
+        `;
+
+        // Summary and recommendation
+        const summaryDiv = document.getElementById('summary');
+        const recommendationBox = document.getElementById('recommendation-box');
         let summaryText = '';
-        let recommendationText = '';
         if (diyTotalCost < professionalTotalCost) {
             const savings = professionalTotalCost - diyTotalCost;
             summaryText = `Conclusion: The <strong>DIY / Purchase Equipment</strong> option is more cost-effective in the first year, saving an estimated <strong>${formatter.format(savings)}</strong>.`;
             summaryDiv.className = 'summary-cheaper';
             recommendationBox.style.display = 'block';
-            recommendationText = "Highly Recommended! Based on your usage frequency, purchasing your own blaster is a more economical and flexible long-term investment.";
         } else {
             const extraCost = diyTotalCost - professionalTotalCost;
             summaryText = `Conclusion: <strong>Hiring Professionals</strong> is more economical in the first year. The DIY option costs <strong>${formatter.format(extraCost)}</strong> more.`;
             summaryDiv.className = 'summary-expensive';
             recommendationBox.style.display = 'none';
-            recommendationText = "";
         }
         summaryDiv.innerHTML = summaryText + "<br><small>Note: This calculation does not factor in personnel training, storage, or time costs. The long-term benefits of the DIY option may be greater.</small>";
 
-        // Update or create the chart
-        updateChart(professionalTotalCost, diyTotalCost);
-    }
-
-    /**
-     * Creates or updates the BI chart with new data.
-     * @param {number} professionalCost - The calculated annual cost of hiring professionals.
-     * @param {number} diyCost - The calculated annual cost of buying and operating the equipment.
-     */
-    function updateChart(professionalCost, diyCost) {
+        // BI Chart Visualization
         const ctx = document.getElementById('costChart').getContext('2d');
-
-        if (myCostChart) {
-            myCostChart.destroy();
+        if (costChart) {
+            costChart.destroy();
         }
-
-        myCostChart = new Chart(ctx, {
+        costChart = new Chart(ctx, {
             type: 'bar',
             data: {
                 labels: ['Hiring Professionals', 'DIY / Purchase Equipment'],
                 datasets: [{
-                    label: 'Annual Total Cost ($)',
-                    data: [professionalCost, diyCost],
-                    backgroundColor: [ 'rgba(255, 159, 64, 0.7)', 'rgba(75, 192, 192, 0.7)' ],
-                    borderColor: [ 'rgba(255, 159, 64, 1)', 'rgba(75, 192, 192, 1)' ],
+                    label: 'Annual Total Cost',
+                    data: [professionalTotalCost, diyTotalCost],
+                    backgroundColor: ['rgba(255, 159, 64, 0.7)', 'rgba(75, 192, 192, 0.7)'],
+                    borderColor: ['rgba(255, 159, 64, 1)', 'rgba(75, 192, 192, 1)'],
                     borderWidth: 1
                 }]
             },
             options: {
                 responsive: true,
-                maintainAspectRatio: true,
                 plugins: {
                     legend: { display: false },
-                    title: {
-                        display: true,
-                        text: 'Visual Cost Comparison (First Year)',
-                        font: { size: 16 }
-                    }
-                },
-                scales: {
-                    y: {
-                        beginAtZero: true,
-                        ticks: {
-                            callback: function(value) { return formatter.format(value); }
+                    title: { display: true, text: 'Annual Cost Comparison', font: { size: 16 } },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                return `Total Cost: ${formatter.format(context.parsed.y)}`;
+                            }
                         }
                     }
-                }
+                },
+                scales: { y: { beginAtZero: true, ticks: { callback: function(value) { return formatter.format(value); } } } }
             }
-        });
-    }
-
-    /**
-     * Generates an HTML string for the PDF content, including user inputs, results, and a watermark.
-     */
-    function getPdfContent() {
-        const hoursPerJob = document.getElementById('hoursPerJob').value;
-        const jobsPerYear = document.getElementById('jobsPerYear').value;
-        const compressorCostValue = document.getElementById('compressorCostValue').textContent;
-        const dryIceCost = document.getElementById('dryIceCost').value;
-        const maintenanceCost = document.getElementById('maintenanceCost').value;
-        const professionalTotalCost = document.getElementById('professionalTotalCost').textContent;
-        const diyTotalCost = document.getElementById('diyTotalCost').textContent;
-        const summaryText = document.getElementById('summary').innerHTML;
-        const recommendationBox = document.getElementById('recommendation-box');
-        const recommendationText = recommendationBox.style.display === 'block' ? recommendationBox.querySelector('p').textContent : '';
-        const chartImageBase64 = myCostChart ? myCostChart.toBase64Image() : '';
-
-        return `
-            <!DOCTYPE html>
-            <html lang="en">
-            <head>
-                <meta charset="UTF-8">
-                <meta name="viewport" content="width=device-width, initial-scale=1.0">
-                <title>TCO Analysis Results</title>
-                <style>
-                    .pdf-watermark {
-                        position: fixed;
-                        top: 50%;
-                        left: 50%;
-                        transform: translate(-50%, -50%) rotate(-45deg);
-                        font-size: 2em;
-                        color: #ccc;
-                        opacity: 0.5;
-                        width: 100%;
-                        text-align: center;
-                        z-index: -1;
-                        pointer-events: none;
-                    }
-                    .pdf-content { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; line-height: 1.6; color: #333; padding: 20px; }
-                    .pdf-title { text-align: center; color: #1a237e; margin-bottom: 20px; }
-                    .pdf-section-title { color: #3f51b5; border-bottom: 1px solid #e0e0e0; padding-bottom: 5px; margin-top: 15px; }
-                    .pdf-input-row { display: flex; justify-content: space-between; margin-bottom: 8px; }
-                    .pdf-label { font-weight: bold; width: 60%; }
-                    .pdf-value { width: 40%; text-align: right; }
-                    .pdf-result-section { display: flex; justify-content: space-between; padding: 10px 0; border-top: 1px solid #f0f0f0; }
-                    .pdf-cost-title { font-weight: bold; }
-                    .pdf-cost-value { font-weight: bold; }
-                    .pdf-summary { text-align: center; margin-top: 15px; font-style: italic; }
-                    .pdf-recommendation { text-align: center; margin-top: 15px; font-weight: bold; color: #2e7d32; }
-                    .pdf-chart-img { max-width: 100%; margin: 15px 0; }
-                </style>
-            </head>
-            <body>
-                <div class="pdf-watermark">Data from https://www.dry-ice-blasting-machine.com/tco-calculator</div>
-                <div class="pdf-content">
-                    <h1 class="pdf-title">TCO Analysis Results</h1>
-                    <div class="pdf-section-title">Project Information</div>
-                    <div class="pdf-input-row"><div class="pdf-label">Estimated Hours per Job:</div><div class="pdf-value">${hoursPerJob}</div></div>
-                    <div class="pdf-input-row"><div class="pdf-label">Number of Jobs per Year:</div><div class="pdf-value">${jobsPerYear}</div></div>
-                    <div class="pdf-section-title">DIY Equipment & Consumable Costs</div>
-                    <div class="pdf-input-row"><div class="pdf-label">AI30 Dry Ice Blaster Cost:</div><div class="pdf-value">$3,099</div></div>
-                    <div class="pdf-input-row"><div class="pdf-label">Air Compressor Cost:</div><div class="pdf-value">${compressorCostValue}</div></div>
-                    <div class="pdf-input-row"><div class="pdf-label">Dry Ice Cost per Pound:</div><div class="pdf-value">$${dryIceCost}</div></div>
-                    <div class="pdf-input-row"><div class="pdf-label">Annual Maintenance & Other Costs:</div><div class="pdf-value">$${maintenanceCost}</div></div>
-                    <div class="pdf-section-title">Cost Analysis</div>
-                    ${chartImageBase64 ? `<img src="${chartImageBase64}" alt="Cost Comparison Chart" class="pdf-chart-img">` : ''}
-                    <div class="pdf-result-section"><div class="pdf-cost-title">Hiring Professionals: Annual Total Cost</div><div class="pdf-cost-value">${professionalTotalCost}</div></div>
-                    <div class="pdf-result-section"><div class="pdf-cost-title">DIY: Annual Total Cost (Equipment + Operations)</div><div class="pdf-cost-value">${diyTotalCost}</div></div>
-                    <div class="pdf-section-title">Summary</div>
-                    <div class="pdf-summary">${summaryText}</div>
-                    ${recommendationText ? `<div class="pdf-section-title">Recommendation</div><div class="pdf-recommendation">${recommendationText}</div>` : ''}
-                </div>
-            </body>
-            </html>
-        `;
-    }
-
-    /**
-     * Saves the generated PDF content.
-     */
-    function saveAsPDF() {
-        const pdfContent = getPdfContent();
-        const pdfButton = document.getElementById('savePdfBtn');
-        const calculateButton = document.querySelector('.calculate-btn');
-        const body = document.body;
-        body.classList.add('generating-pdf'); // Add class to hide main content
-
-        // Temporarily hide buttons
-        pdfButton.style.display = 'none';
-        calculateButton.style.display = 'none';
-
-        const options = {
-            margin:       0.5,
-            filename:     'TCO_Analysis_Results.pdf',
-            image:        { type: 'jpeg', quality: 0.98 },
-            html2canvas:  { scale: 2, useCORS: true },
-            jsPDF:        { unit: 'in', format: 'letter', orientation: 'portrait' }
-        };
-
-        html2pdf().from(pdfContent).set(options).save().then(() => {
-            // Show buttons and remove class after saving
-            pdfButton.style.display = 'block';
-            calculateButton.style.display = 'block';
-            body.classList.remove('generating-pdf');
         });
     }
 </script>
