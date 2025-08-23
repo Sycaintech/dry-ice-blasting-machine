@@ -1,0 +1,624 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Air Compressor Guide for Dry Ice Blasting | Aiolith</title>
+    <link rel="icon" href="favicon.png" type="image/png">
+    <link rel="apple-touch-icon" href="favicon.png">
+    <meta name="description" content="A detailed guide to selecting the right air compressor for your dry ice blasting machine. Understand PSI, CFM, and explore our interactive calculator to find the perfect match.">
+    <meta name="robots" content="index, follow">
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <style>
+        /* Base styles from your website for consistency */
+        :root {
+            --primary-text: #1d1d1f;
+            --secondary-text: #86868b;
+            --accent-color: #781a21;
+            --background-light: #f5f5f7;
+            --background-white: #ffffff;
+            --border-light: #d2d2d7;
+            --shadow-light: rgba(0, 0, 0, 0.04);
+            --shadow-medium: rgba(0, 0, 0, 0.08);
+            --dark-background: linear-gradient(135deg, #000000 0%, #1a1a1a 100%);
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', Roboto, sans-serif;
+            font-size: 17px;
+            line-height: 1.5;
+            color: var(--primary-text);
+            background: var(--background-white);
+            overflow-x: hidden;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 32px;
+        }
+        .section { padding: 120px 0; }
+        .section-light { background: var(--background-light); }
+        .section-dark { background: var(--dark-background); color: white; }
+        .section-header { text-align: center; margin-bottom: 80px; }
+        .section-title {
+            font-size: clamp(40px, 5vw, 56px);
+            font-weight: 700;
+            letter-spacing: -0.03em;
+            margin-bottom: 20px;
+        }
+        .section-subtitle {
+            font-size: 22px;
+            color: var(--secondary-text);
+            max-width: 800px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+        .section-dark .section-title { color: white; }
+        .section-dark .section-subtitle { color: rgba(255, 255, 255, 0.8); }
+
+        /* Navigation Bar */
+        .navbar {
+            position: sticky;
+            top: 0;
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: saturate(180%) blur(20px);
+            -webkit-backdrop-filter: saturate(180%) blur(20px);
+            z-index: 1000;
+            border-bottom: 1px solid var(--border-light);
+        }
+        .nav-container {
+            max-width: 1440px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 32px;
+            height: 80px;
+        }
+        .logo { font-size: 21px; font-weight: 600; color: var(--primary-text); }
+        .nav-link {
+            background-color: var(--accent-color);
+            color: white;
+            padding: 10px 22px;
+            border-radius: 20px;
+            text-decoration: none;
+            font-size: 15px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+        .nav-link:hover { background-color: #5f151a; transform: scale(1.05); }
+
+        /* Hero Section */
+        .hero {
+            padding: 100px 0;
+            text-align: center;
+            background: var(--dark-background);
+            color: white;
+        }
+        .hero h1 {
+            font-size: clamp(48px, 6vw, 72px);
+            font-weight: 700;
+            margin-bottom: 20px;
+            letter-spacing: -0.04em;
+        }
+        .hero p {
+            font-size: 24px;
+            max-width: 800px;
+            margin: 0 auto;
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        /* General content styles */
+        .grid-2-col {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+        .text-content h3 {
+            font-size: 36px;
+            font-weight: 700;
+            margin-bottom: 24px;
+        }
+        .text-content p {
+            font-size: 18px;
+            color: var(--secondary-text);
+            line-height: 1.7;
+            margin-bottom: 20px;
+        }
+        .image-content img {
+            width: 100%;
+            border-radius: 24px;
+            box-shadow: 0 16px 64px var(--shadow-medium);
+        }
+
+        /* Key Metrics Section */
+        .metric-card {
+            background: var(--background-white);
+            padding: 40px;
+            border-radius: 24px;
+            border: 1px solid var(--border-light);
+            text-align: center;
+        }
+        .metric-value {
+            font-size: 64px;
+            font-weight: 700;
+            color: var(--accent-color);
+            margin-bottom: 16px;
+        }
+        .metric-label {
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 16px;
+        }
+        .metric-description {
+            color: var(--secondary-text);
+            font-size: 16px;
+        }
+
+        /* Compressor Calculator Section */
+        .calculator-wrapper {
+            background: var(--background-white);
+            padding: 50px;
+            border-radius: 24px;
+            box-shadow: 0 20px 60px var(--shadow-medium);
+        }
+        .calculator-step { margin-bottom: 30px; }
+        .calculator-step label {
+            display: block;
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+        .calculator-select {
+            width: 100%;
+            padding: 15px;
+            font-size: 17px;
+            border-radius: 12px;
+            border: 1px solid var(--border-light);
+            background-color: #fff;
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23343a40' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M2 5l6 6 6-6'/%3e%3c/svg%3e");
+            background-repeat: no-repeat;
+            background-position: right 1rem center;
+            background-size: 16px 12px;
+        }
+        .btn-calculate {
+            width: 100%;
+            padding: 16px;
+            font-size: 18px;
+            font-weight: 600;
+            background: var(--accent-color);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .btn-calculate:hover { background: #5f151a; transform: translateY(-2px); }
+
+        #recommendation-result {
+            margin-top: 40px;
+            background: var(--background-light);
+            padding: 40px;
+            border-radius: 16px;
+            border: 1px solid var(--border-light);
+            display: none; /* Hidden by default */
+            animation: fadeIn 0.5s ease;
+        }
+        #recommendation-result h3 { font-size: 24px; margin-bottom: 20px; text-align: center; }
+        .recommendation-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 20px;
+            text-align: center;
+        }
+        .recommendation-item .label { font-size: 16px; color: var(--secondary-text); margin-bottom: 8px; }
+        .recommendation-item .value { font-size: 22px; font-weight: 600; color: var(--primary-text); }
+        .recommendation-note {
+            margin-top: 30px;
+            text-align: center;
+            font-size: 15px;
+            color: var(--secondary-text);
+        }
+        .btn-engineer {
+            display: inline-block;
+            margin-top: 30px;
+            padding: 12px 28px;
+            background: var(--accent-color);
+            color: white;
+            text-decoration: none;
+            border-radius: 24px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+        .btn-engineer:hover {
+            background: #5f151a;
+            transform: translateY(-2px);
+        }
+
+        /* Data Visualization Section */
+        .chart-container {
+            background: white;
+            padding: 40px;
+            border-radius: 24px;
+            box-shadow: 0 16px 64px rgba(0, 0, 0, 0.08);
+        }
+
+        /* Compressor Types Grid */
+        .types-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 40px;
+        }
+        .type-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 40px;
+            border-radius: 24px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+        .type-card:hover { background: rgba(255, 255, 255, 0.1); transform: translateY(-5px); }
+        .type-card h4 { font-size: 22px; font-weight: 600; margin-bottom: 16px; }
+        .type-card p { color: rgba(255, 255, 255, 0.8); }
+
+        /* Footer */
+        footer {
+            background: #000;
+            color: var(--secondary-text);
+            padding: 60px 0;
+            text-align: center;
+            font-size: 15px;
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 1s cubic-bezier(0.25, 0.1, 0.25, 1);
+        }
+        .fade-in.visible { opacity: 1; transform: translateY(0); }
+
+        /* Responsive Styles */
+        @media (max-width: 992px) {
+            .grid-2-col, .types-grid { grid-template-columns: 1fr; }
+            .image-content { margin-top: 40px; }
+            .recommendation-grid {
+                grid-template-columns: repeat(2, 1fr);
+                row-gap: 30px;
+            }
+        }
+        @media (max-width: 768px) {
+            .section { padding: 80px 0; }
+            .container { padding: 0 20px; }
+            .nav-container { padding: 0 20px; }
+            .calculator-wrapper { padding: 30px; }
+            .metric-value { font-size: 48px; }
+            .metric-label { font-size: 20px; }
+        }
+         @media (max-width: 576px) {
+            .recommendation-grid {
+                grid-template-columns: 1fr;
+            }
+         }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="nav-container">
+            <h1 class="logo">AIR COMPRESSOR GUIDE</h1>
+            <a href="/index.html" class="nav-link">Back to Main Site</a>
+        </div>
+    </nav>
+
+    <section class="hero">
+        <div class="container">
+            <h1>The Definitive Guide to Air Compressors</h1>
+            <p>Unlock the full potential of your dry ice blaster by pairing it with the perfect air compressor. This guide will help you make the right choice.</p>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="container grid-2-col">
+            <div class="text-content fade-in">
+                <h3>Why the Right Compressor is Non-Negotiable</h3>
+                <p>In dry ice blasting, compressed air is the engine. It's responsible for propelling the CO₂ pellets at velocities high enough to strip contaminants from surfaces. An underpowered or mismatched compressor doesn't just slow you down—it compromises cleaning quality and can even damage your equipment.</p>
+                <p>Understanding air pressure (PSI), air volume (CFM), and air quality is the first step to achieving flawless, efficient, and safe operation.</p>
+            </div>
+            <div class="image-content fade-in">
+                <img src="https://images.unsplash.com/photo-1629525283442-8a901f945373?q=80&w=1770&auto=format&fit=crop" alt="Industrial air compressor in a facility">
+            </div>
+        </div>
+    </section>
+
+    <section class="section section-light">
+        <div class="container">
+            <div class="section-header fade-in">
+                <h2 class="section-title">The Two Pillars of Performance: PSI & CFM</h2>
+                <p class="section-subtitle">These two metrics determine the power and efficiency of your cleaning process. Getting them right is essential for optimal results.</p>
+            </div>
+            <div class="grid-2-col">
+                <div class="metric-card fade-in">
+                    <div class="metric-value">125 PSI</div>
+                    <div class="metric-label">Air Pressure (PSI)</div>
+                    <p class="metric-description">PSI (Pounds per Square Inch) is the **force** of the air. Higher PSI provides a more powerful impact, essential for removing stubborn contaminants like corrosion, carbon, or hardened grease. We recommend a range of **100-150 PSI** for most applications.</p>
+                </div>
+                <div class="metric-card fade-in">
+                    <div class="metric-value">150 CFM</div>
+                    <div class="metric-label">Air Volume (CFM)</div>
+                    <p class="metric-description">CFM (Cubic Feet per Minute) is the **volume** of air the compressor can supply. Dry ice blasters are air-hungry. Insufficient CFM leads to performance drops and longer cleaning times. Most commercial blasters require **150-300 CFM** for continuous operation.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="container">
+            <div class="section-header fade-in">
+                <h2 class="section-title">Find Your Perfect AI30 Compressor Match</h2>
+                <p class="section-subtitle">Answer two simple questions to get a tailored compressor recommendation for your AI30 Dry Ice Blaster.</p>
+            </div>
+            <div class="calculator-wrapper fade-in">
+                <div class="calculator-step">
+                    <label for="application-type">1. What is your primary cleaning application?</label>
+                    <select id="application-type" class="calculator-select">
+                        <option value="light">Light-Duty (e.g., electronics, light dust, moderate cleaning)</option>
+                        <option value="commercial" selected>Commercial (e.g., auto detailing, most mold remediation, ideal for most tasks)</option>
+                        <option value="heavy">Heavy-Duty / Industrial (e.g., continuous use, industrial machinery)</option>
+                    </select>
+                </div>
+                <div class="calculator-step">
+                    <label for="work-location">2. Where will you primarily be working?</label>
+                    <select id="work-location" class="calculator-select">
+                        <option value="indoor">Indoor Facility (e.g., workshop, factory floor, food plant)</option>
+                        <option value="outdoor">Outdoor / Remote Sites (e.g., construction sites, shipyards, on-site contracting)</option>
+                    </select>
+                </div>
+                <button id="calculate-btn" class="btn-calculate">Get Recommendation</button>
+
+                <div id="recommendation-result">
+                    <h3>Your Recommended Compressor Setup for AI30:</h3>
+                    <div class="recommendation-grid">
+                        <div class="recommendation-item">
+                            <div class="label">Air Pressure</div>
+                            <div class="value" id="rec-psi">--</div>
+                        </div>
+                        <div class="recommendation-item">
+                            <div class="label">Air Volume</div>
+                            <div class="value" id="rec-cfm">--</div>
+                        </div>
+                        <div class="recommendation-item">
+                            <div class="label">Compressor Power</div>
+                            <div class="value" id="rec-hp">--</div>
+                        </div>
+                        <div class="recommendation-item">
+                            <div class="label">Tank Capacity</div>
+                            <div class="value" id="rec-tank">--</div>
+                        </div>
+                        <div class="recommendation-item">
+                            <div class="label">Compressor Type</div>
+                            <div class="value" id="rec-type">--</div>
+                        </div>
+                    </div>
+                    <div style="text-align: center;">
+                        <p class="recommendation-note" id="rec-note">This is a general recommendation. Always consult your blaster's manual for precise requirements.</p>
+                        <a href="mailto:sales@aiolith.com" class="btn-engineer">Let an engineer provide for you</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section section-light">
+        <div class="container">
+            <div class="section-header fade-in">
+                <h2 class="section-title">CFM Requirements at a Glance</h2>
+                <p class="section-subtitle">This chart visualizes the dramatic increase in air volume (CFM) needed as cleaning tasks become more aggressive. Mismatching CFM is one of the most common performance bottlenecks.</p>
+            </div>
+            <div class="chart-container fade-in">
+                <canvas id="cfm-chart"></canvas>
+            </div>
+        </div>
+    </section>
+
+    <section class="section section-dark">
+        <div class="container">
+            <div class="section-header fade-in">
+                <h2 class="section-title">Choosing Your Compressor Technology</h2>
+                <p class="section-subtitle">Each compressor type has unique strengths. Your choice depends on your need for portability, continuous operation, and work environment.</p>
+            </div>
+            <div class="types-grid">
+                <div class="type-card fade-in">
+                    <h4>Rotary Screw Compressors</h4>
+                    <p>The workhorse for industrial use. Ideal for continuous, high-volume applications. They are efficient, reliable, and provide a consistent air supply, making them the top recommendation for fixed installations.</p>
+                </div>
+                <div class="type-card fade-in">
+                    <h4>Diesel-Powered Compressors</h4>
+                    <p>Power on the go. These portable and robust units are essential for field work, construction sites, and remote locations where electricity is unavailable. They offer high CFM and PSI capabilities for the toughest jobs.</p>
+                </div>
+                <div class="type-card fade-in">
+                    <h4>Electric Compressors</h4>
+                    <p>The choice for indoor and noise-sensitive areas. Best for workshops, food processing plants, and hospitals. They require less maintenance and are available in various power options to suit your facility.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="container grid-2-col">
+            <div class="image-content fade-in">
+                 <img src="https://images.unsplash.com/photo-1581092916327-01053b2be0ce?q=80&w=1770&auto=format&fit=crop" alt="Air treatment system with filters and dryers">
+            </div>
+            <div class="text-content fade-in">
+                <h3>The Unsung Hero: Clean, Dry Air</h3>
+                <p>Moisture and oil are the enemies of a dry ice blaster. Humid or contaminated air can cause internal freezing, nozzle clogging, and inconsistent performance. Investing in proper air treatment isn't an option—it's essential for protecting your equipment.</p>
+                <p>An integrated system with an **air dryer** (refrigerated or desiccant) and an **oil separator/filtration system** is critical to ensure a pure, dry air supply, prolonging the life of your blaster and guaranteeing a perfect clean every time.</p>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Dry Ice Blasting Machine Guide. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // --- Interactive Calculator Logic ---
+            const calculateBtn = document.getElementById('calculate-btn');
+            const resultDiv = document.getElementById('recommendation-result');
+
+            const recommendations = {
+                light_indoor: {
+                    psi: '100-150 PSI',
+                    cfm: '50 - 60 CFM',
+                    hp: '15 HP',
+                    tank: '≥600L (150 gal)',
+                    type: 'Electric Rotary Screw',
+                    note: 'Suitable for moderate, non-continuous cleaning tasks.'
+                },
+                light_outdoor: {
+                    psi: '100-150 PSI',
+                    cfm: '50 - 60 CFM',
+                    hp: '15 HP',
+                    tank: '≥600L (150 gal)',
+                    type: 'Diesel Portable',
+                    note: 'A portable diesel unit for moderate on-site work.'
+                },
+                commercial_indoor: {
+                    psi: '100-150 PSI',
+                    cfm: '70 - 80 CFM',
+                    hp: '20 HP',
+                    tank: '1000L (260 gal)',
+                    type: 'Electric Rotary Screw',
+                    note: 'Ideal for most commercial applications and frequent use.'
+                },
+                commercial_outdoor: {
+                    psi: '100-150 PSI',
+                    cfm: '70 - 80 CFM',
+                    hp: '20 HP',
+                    tank: '1000L (260 gal)',
+                    type: 'Diesel-Powered Portable',
+                    note: 'A versatile diesel compressor for ideal performance on-site.'
+                },
+                heavy_indoor: {
+                    psi: '100-150 PSI',
+                    cfm: '100 - 120 CFM',
+                    hp: '30 HP',
+                    tank: '1000L (260 gal)',
+                    type: 'Large Electric Rotary Screw',
+                    note: 'Highly recommended for demanding industrial tasks and continuous operation.'
+                },
+                heavy_outdoor: {
+                    psi: '100-150 PSI',
+                    cfm: '100 - 120 CFM',
+                    hp: '30 HP',
+                    tank: '1000L (260 gal)',
+                    type: 'Diesel Rotary Screw',
+                    note: 'A powerful diesel unit for the most demanding remote industrial work.'
+                }
+            };
+
+            calculateBtn.addEventListener('click', () => {
+                const application = document.getElementById('application-type').value;
+                const location = document.getElementById('work-location').value;
+                const key = `${application}_${location}`;
+                const rec = recommendations[key];
+
+                if (rec) {
+                    document.getElementById('rec-psi').textContent = rec.psi;
+                    document.getElementById('rec-cfm').textContent = rec.cfm;
+                    document.getElementById('rec-hp').textContent = rec.hp;
+                    document.getElementById('rec-tank').textContent = rec.tank;
+                    document.getElementById('rec-type').textContent = rec.type;
+                    document.getElementById('rec-note').textContent = rec.note;
+                    resultDiv.style.display = 'block';
+                }
+            });
+
+            // --- Chart.js Data Visualization ---
+            const ctx = document.getElementById('cfm-chart').getContext('2d');
+            let cfmChart;
+
+            function createOrUpdateChart() {
+                if (cfmChart) {
+                    cfmChart.destroy();
+                }
+
+                const isMobile = window.innerWidth < 768;
+                const chartType = 'bar';
+                const indexAxis = isMobile ? 'y' : 'x';
+                const yAxisTitle = isMobile ? 'Application' : 'CFM';
+                const xAxisTitle = isMobile ? 'Cubic Feet per Minute (CFM)' : 'Application';
+
+                cfmChart = new Chart(ctx, {
+                    type: chartType,
+                    data: {
+                        labels: ['Electronics Cleaning', 'Auto Detailing', 'Mold Remediation', 'Food Processing', 'Paint Stripping', 'Heavy Industrial Grease'],
+                        datasets: [{
+                            label: 'Recommended Minimum CFM',
+                            data: [80, 150, 180, 200, 300, 450],
+                            backgroundColor: 'rgba(120, 26, 33, 0.8)',
+                            borderColor: 'rgba(120, 26, 33, 1)',
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        indexAxis: indexAxis,
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            title: {
+                                display: true,
+                                text: 'Air Volume (CFM) by Cleaning Application',
+                                font: { size: 18, family: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif' }
+                            },
+                            legend: { display: false }
+                        },
+                        scales: {
+                            y: {
+                                beginAtZero: true,
+                                title: {
+                                    display: true,
+                                    text: yAxisTitle
+                                }
+                            },
+                            x: {
+                               title: {
+                                    display: true,
+                                    text: xAxisTitle
+                               }
+                            }
+                        }
+                    }
+                });
+            }
+
+            createOrUpdateChart();
+            window.addEventListener('resize', createOrUpdateChart);
+
+            // --- Intersection Observer for Fade-in Animations ---
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            document.querySelectorAll('.fade-in').forEach(el => {
+                observer.observe(el);
+            });
+        });
+    </script>
+</body>
+</html>
