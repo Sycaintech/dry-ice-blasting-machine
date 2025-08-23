@@ -74,40 +74,86 @@
             margin: 0 auto;
             padding: 0 32px;
         }
-        .section { padding: 80px 0; }
-
-        /* Navigation Bar */
-        .navbar {
-            position: sticky;
-            top: 0;
-            background: rgba(255, 255, 255, 0.8);
+        
+        /* --- NEW NAVIGATION BAR STYLES --- */
+        .main-header {
+            background-color: rgba(255, 255, 255, 0.8);
             backdrop-filter: saturate(180%) blur(20px);
             -webkit-backdrop-filter: saturate(180%) blur(20px);
-            z-index: 1000;
+            padding: 15px 0;
             border-bottom: 1px solid var(--border-light);
+            width: 100%;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            height: 80px;
         }
+
         .nav-container {
             max-width: 1440px;
             margin: 0 auto;
+            padding: 0 32px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 0 32px;
-            height: 80px;
+            height: 100%;
         }
-        .logo { font-size: 21px; font-weight: 600; color: var(--primary-text); }
-        .nav-link {
-            background-color: var(--accent-color);
-            color: white;
-            padding: 10px 22px;
-            border-radius: 20px;
+
+        .back-button {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--primary-text);
             text-decoration: none;
-            font-size: 15px;
             font-weight: 500;
+            font-size: 16px;
+            transition: color 0.3s ease;
+            padding: 8px 10px;
+            border-radius: 8px;
+        }
+
+        .back-button:hover {
+            background-color: var(--background-light);
+            color: var(--accent-color);
+        }
+
+        .back-button svg {
+            width: 20px;
+            height: 20px;
+            fill: currentColor; /* Inherit color from the parent link */
+        }
+        
+        .share-button {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background-color: transparent;
+            color: var(--primary-text);
+            padding: 9px 15px;
+            border-radius: 20px;
+            border: 1px solid var(--border-light);
+            font-family: inherit;
+            font-weight: 500;
+            font-size: 15px;
+            cursor: pointer;
             transition: all 0.3s ease;
         }
-        .nav-link:hover { background-color: #5f151a; transform: scale(1.05); }
 
+        .share-button:hover {
+            background-color: var(--background-light);
+            border-color: #bbb;
+        }
+
+        .share-button svg {
+            width: 18px;
+            height: 18px;
+            fill: var(--primary-text);
+        }
+        /* --- END OF NEW NAVIGATION BAR STYLES --- */
+
+
+        .section { padding: 80px 0; }
+        
         /* Article Styles */
         .article-header {
             text-align: center;
@@ -247,12 +293,18 @@
 </head>
 <body>
 
-    <nav class="navbar">
+    <header class="main-header">
         <div class="nav-container">
-            <div class="logo">DRY ICE BLASTER COST</div>
-            <a href="/index.html" class="nav-link">More</a>
+            <a href="/index.html" class="back-button">
+                <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24"><path d="M560-240 320-480l240-240 56 57-184 183 184 183-56 57Z"/></svg>
+                <span>Back</span>
+            </a>
+            <button id="share-button" class="share-button">
+                <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24"><path d="M720-80q-50 0-85-35t-35-85q0-7 1-14.5t3-13.5L332-392q-17 15-38 23.5t-44 8.5q-50 0-85-35t-35-85q0-50 35-85t85-35q23 0 44 8.5t38 23.5l272-164q-2-6-3-13.5t-1-14.5q0-50 35-85t85-35q50 0 85 35t35 85q0 50-35 85t-85 35q-23 0-44-8.5T638-672L366-508q2 6 3 13.5t1 14.5q0 7-1 14.5t-3 13.5l272 164q17-15 38-23.5t44-8.5q50 0 85 35t35 85q0 50-35 85t-85 35Z"/></svg>
+                <span>Share</span>
+            </button>
         </div>
-    </nav>
+    </header>
 
     <main>
         <article>
@@ -347,6 +399,45 @@
             <p>&copy; 2025 Aiolith News. All Rights Reserved.</p>
         </div>
     </footer>
+
+    <script>
+        /**
+         * 页面分享功能
+         */
+        function sharePage() {
+            const shareButton = document.getElementById('share-button');
+            const originalButtonContent = shareButton.innerHTML;
+            // Updated share data for this specific page
+            const shareData = {
+                title: 'Dry Ice Blasting Machine Cost: The Ultimate Guide for 2025',
+                text: 'I found this ultimate guide on dry ice blasting machine costs. Check it out!',
+                url: window.location.href
+            };
+
+            if (navigator.share) {
+                navigator.share(shareData)
+                    .then(() => console.log('Successfully shared.'))
+                    .catch((error) => console.log('Error sharing:', error));
+            } else {
+                navigator.clipboard.writeText(window.location.href).then(() => {
+                    shareButton.innerHTML = 'Link Copied!';
+                    shareButton.disabled = true;
+                    setTimeout(() => {
+                        shareButton.innerHTML = originalButtonContent;
+                        shareButton.disabled = false;
+                    }, 2000);
+                }).catch(err => {
+                    console.error('Failed to copy link: ', err);
+                    alert('Failed to copy link. Please copy it manually.');
+                });
+            }
+        }
+
+        // Wait for the DOM to be fully loaded before attaching event listeners
+        document.addEventListener('DOMContentLoaded', function() {
+            document.getElementById('share-button').addEventListener('click', sharePage);
+        });
+    </script>
 
 </body>
 </html>
