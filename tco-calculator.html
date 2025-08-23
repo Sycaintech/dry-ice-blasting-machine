@@ -10,7 +10,6 @@
     <meta name="keywords" content="dry ice blaster TCO">
     <meta name="robots" content="index, follow">
     <link rel="canonical" href="https://www.dry-ice-blasting-machine.com">
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
         /* Smooth scroll effect for the page */
         html { scroll-behavior: smooth; }
@@ -109,15 +108,9 @@
         .view-product-btn { display: inline-block; margin-top: 15px; padding: 10px 25px; font-size: 1em; font-weight: bold; color: #fff; background-color: #43a047; border-radius: 5px; text-decoration: none; transition: background-color 0.3s ease; }
         .view-product-btn:hover { background-color: #388e3c; }
 
-        .chart-container {
-            margin-top: 30px;
-            padding: 20px;
-            background-color: #fff;
-            border-radius: 8px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-        }
+        /* 移除了 .chart-container 样式 */
 
-        /* 新增: 成本构成明细样式 */
+        /* 成本构成明细样式 */
         .cost-breakdown {
             width: 100%;
             margin-top: 15px;
@@ -203,10 +196,6 @@
                 <div class="cost-breakdown" id="diyBreakdown"></div>
             </div>
 
-            <div class="chart-container">
-                <canvas id="costChart"></canvas>
-            </div>
-
             <div id="summary"></div>
             <div id="recommendation-box">
                 <p><strong>Highly Recommended!</strong> Based on your usage frequency, purchasing your own blaster is a more economical and flexible long-term investment.</p>
@@ -231,7 +220,7 @@
         compressorCostValue.textContent = formatter.format(compressorCostSlider.value);
     });
 
-    let costChart;
+    // 移除了 costChart 变量声明
 
     function calculateTCO() {
         // Get user inputs
@@ -262,7 +251,7 @@
         document.getElementById('diyTotalCost').textContent = formatter.format(diyTotalCost);
         document.getElementById('results').style.display = 'block';
 
-        // --- 新增: 填充成本构成明细 ---
+        // --- 填充成本构成明细 ---
         const professionalBreakdownDiv = document.getElementById('professionalBreakdown');
         professionalBreakdownDiv.innerHTML = `
             <p><span>Annual Service Hours:</span> <span>${totalHoursPerYear.toLocaleString()} hrs</span></p>
@@ -296,39 +285,7 @@
         }
         summaryDiv.innerHTML = summaryText + "<br><small>Note: This calculation does not factor in personnel training, storage, or time costs. The long-term benefits of the DIY option may be greater.</small>";
 
-        // BI Chart Visualization
-        const ctx = document.getElementById('costChart').getContext('2d');
-        if (costChart) {
-            costChart.destroy();
-        }
-        costChart = new Chart(ctx, {
-            type: 'bar',
-            data: {
-                labels: ['Hiring Professionals', 'DIY / Purchase Equipment'],
-                datasets: [{
-                    label: 'Annual Total Cost',
-                    data: [professionalTotalCost, diyTotalCost],
-                    backgroundColor: ['rgba(255, 159, 64, 0.7)', 'rgba(75, 192, 192, 0.7)'],
-                    borderColor: ['rgba(255, 159, 64, 1)', 'rgba(75, 192, 192, 1)'],
-                    borderWidth: 1
-                }]
-            },
-            options: {
-                responsive: true,
-                plugins: {
-                    legend: { display: false },
-                    title: { display: true, text: 'Annual Cost Comparison', font: { size: 16 } },
-                    tooltip: {
-                        callbacks: {
-                            label: function(context) {
-                                return `Total Cost: ${formatter.format(context.parsed.y)}`;
-                            }
-                        }
-                    }
-                },
-                scales: { y: { beginAtZero: true, ticks: { callback: function(value) { return formatter.format(value); } } } }
-            }
-        });
+        // 移除了整个 BI Chart Visualization 部分的代码
     }
 </script>
 
