@@ -31,47 +31,85 @@
             background: var(--background-white);
         }
 
-        /* --- Simplified Navigation (Matching Main Page Dark Theme) --- */
-        .navbar {
-            background: rgba(3, 3, 3, 0.8);
+        /* --- NEW NAVIGATION BAR STYLES --- */
+        .main-header {
+            background-color: rgba(255, 255, 255, 0.8);
             backdrop-filter: saturate(180%) blur(20px);
             -webkit-backdrop-filter: saturate(180%) blur(20px);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-            position: fixed;
+            padding: 15px 0;
+            border-bottom: 1px solid var(--border-light);
+            width: 100%;
+            position: sticky;
             top: 0;
-            left: 0;
-            right: 0;
             z-index: 1000;
+            height: 80px;
         }
+
         .nav-container {
             max-width: 1440px;
             margin: 0 auto;
+            padding: 0 32px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 0 32px;
-            height: 80px;
+            height: 100%;
         }
-        .logo {
-            font-size: 21px;
-            font-weight: 600;
-            color: white;
+
+        .back-button {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--primary-text);
             text-decoration: none;
+            font-weight: 500;
+            font-size: 16px;
+            transition: color 0.3s ease;
+            padding: 8px 10px;
+            border-radius: 8px;
         }
-        .nav-home-link {
+
+        .back-button:hover {
+            background-color: var(--background-light);
+            color: var(--accent-color);
+        }
+
+        .back-button svg {
+            width: 20px;
+            height: 20px;
+            fill: currentColor; /* Inherit color from the parent link */
+        }
+
+        .share-button {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background-color: transparent;
+            color: var(--primary-text);
+            padding: 9px 15px;
+            border-radius: 20px;
+            border: 1px solid var(--border-light);
+            font-family: inherit;
+            font-weight: 500;
             font-size: 15px;
-            color: white;
-            text-decoration: none;
-            opacity: 0.8;
-            transition: opacity 0.3s ease;
+            cursor: pointer;
+            transition: all 0.3s ease;
         }
-        .nav-home-link:hover {
-            opacity: 1;
+
+        .share-button:hover {
+            background-color: var(--background-light);
+            border-color: #bbb;
         }
+
+        .share-button svg {
+            width: 18px;
+            height: 18px;
+            fill: var(--primary-text);
+        }
+        /* --- END OF NEW NAVIGATION BAR STYLES --- */
 
         /* --- Page Content Styles --- */
         .page-header {
-            padding-top: 160px;
+            padding-top: 160px; /* Adjusted to account for sticky 80px nav bar */
             padding-bottom: 80px;
             background-color: var(--background-light);
             text-align: center;
@@ -168,12 +206,18 @@
 </head>
 <body>
 
-    <nav class="navbar">
+    <header class="main-header">
         <div class="nav-container">
-            <a href="https://www.dry-ice-blasting-machine.com" class="logo">DRY ICE BLASTING MACHINE</a>
-            <a href="https://www.dry-ice-blasting-machine.com" class="nav-home-link">Home</a>
+            <a href="/index.html" class="back-button">
+                <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24"><path d="M560-240 320-480l240-240 56 57-184 183 184 183-56 57Z"/></svg>
+                <span>Back</span>
+            </a>
+            <button id="share-button" class="share-button">
+                <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24"><path d="M720-80q-50 0-85-35t-35-85q0-7 1-14.5t3-13.5L332-392q-17 15-38 23.5t-44 8.5q-50 0-85-35t-35-85q0-50 35-85t85-35q23 0 44 8.5t38 23.5l272-164q-2-6-3-13.5t-1-14.5q0-50 35-85t85-35q50 0 85 35t35 85q0 50-35 85t-85 35q-23 0-44-8.5T638-672L366-508q2 6 3 13.5t1 14.5q0 7-1 14.5t-3 13.5l272 164q17-15 38-23.5t44-8.5q50 0 85 35t35 85q0 50-35 85t-85 35Z"/></svg>
+                <span>Share</span>
+            </button>
         </div>
-    </nav>
+    </header>
 
     <header class="page-header">
         <h1 class="page-title">Terms of Service</h1>
@@ -185,7 +229,7 @@
                 <p><strong>Disclaimer:</strong> Our Privacy Policy and Terms of Service are provided to help you understand how we operate. They are based on standard templates and do not constitute legal advice. For any legal questions, please consult a qualified professional.</p>
             </div>
 
-            <p><strong>Last Updated: August 21, 2025</strong></p>
+            <p><strong>Last Updated: August 23, 2025</strong></p>
 
             <h2>1. Agreement to Terms</h2>
             <p>By accessing our website https://www.dry-ice-blasting-machine.com (the "Site") or purchasing products from Aiolith Inc. ("we," "us," "our"), you agree to be bound by these Terms of Service ("Terms"). If you disagree with any part of the terms, then you may not access the service.</p>
@@ -223,6 +267,45 @@
             </div>
         </div>
     </footer>
+
+    <script>
+        /**
+         share
+         */
+        function sharePage() {
+            const shareButton = document.getElementById('share-button');
+            const originalButtonContent = shareButton.innerHTML;
+            // Updated share data for the Terms of Service page
+            const shareData = {
+                title: 'Terms of Service - Dry Ice Blasting Machine',
+                text: 'Review the Terms of Service for Aiolith Inc. dry ice blasting machine solutions.',
+                url: window.location.href
+            };
+
+            if (navigator.share) {
+                navigator.share(shareData)
+                    .then(() => console.log('Successfully shared.'))
+                    .catch((error) => console.log('Error sharing:', error));
+            } else {
+                navigator.clipboard.writeText(window.location.href).then(() => {
+                    shareButton.innerHTML = 'Link Copied!';
+                    shareButton.disabled = true;
+                    setTimeout(() => {
+                        shareButton.innerHTML = originalButtonContent;
+                        shareButton.disabled = false;
+                    }, 2000);
+                }).catch(err => {
+                    console.error('Failed to copy link: ', err);
+                    alert('Failed to copy link. Please copy it manually.');
+                });
+            }
+        }
+
+        // Wait for the DOM to be fully loaded before attaching event listeners
+        document.addEventListener('DOMContentLoaded', function() {
+            document.getElementById('share-button').addEventListener('click', sharePage);
+        });
+    </script>
 
 </body>
 </html>
