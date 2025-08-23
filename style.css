@@ -1642,7 +1642,7 @@ footer {
 /* ===== NEW: Back to Top Button Styles ===== */
 #back-to-top-btn {
     position: fixed;
-    bottom: 80px;
+    bottom: 90px;
     right: 27px;
     z-index: 1000;
     width: 56px;
