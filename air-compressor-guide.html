@@ -1,27 +1,27 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Air Compressor Guide for Dry Ice Blasting | Aiolith</title>
-    <link rel="icon" href="favicon.png" type="image/png">
-    <link rel="apple-touch-icon" href="favicon.png">
-    <meta name="description" content="A detailed guide to selecting the right air compressor for your dry ice blasting machine. Understand PSI, CFM, and explore our interactive calculator to find the perfect match.">
-    <meta name="robots" content="index, follow">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Air Compressor Guide for Dry Ice Blasting | Aiolith</title>
+  <link rel="icon" href="favicon.png" type="image/png">
+  <link rel="apple-touch-icon" href="favicon.png">
+  <meta name="description" content="A detailed guide to selecting the right air compressor for your dry ice blasting machine. Understand PSI, CFM, and explore our interactive calculator to find the perfect match.">
+  <meta name="robots" content="index, follow">
 
-    <meta property="og:type" content="article">
-    <meta property="og:title" content="Air Compressor Guide for Dry Ice Blasting | Aiolith">
-    <meta property="og:description" content="A detailed guide to selecting the right air compressor for your dry ice blasting machine. Understand PSI, CFM, and explore our interactive calculator to find the perfect match.">
-    <meta property="og:site_name" content="Aiolith">
-    <meta property="og:url" content="https://www.dry-ice-blasting-machine.com/air-compressor-guide">
-    <meta property="og:image" content="/images/product-preview.jpg">
-    <meta property="og:image:width" content="1200">
-    <meta property="og:image:height" content="630">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Air Compressor Guide for Dry Ice Blasting | Aiolith">
+  <meta property="og:description" content="A detailed guide to selecting the right air compressor for your dry ice blasting machine. Understand PSI, CFM, and explore our interactive calculator to find the perfect match.">
+  <meta property="og:site_name" content="Aiolith">
+  <meta property="og:url" content="https://www.dry-ice-blasting-machine.com/air-compressor-guide">
+  <meta property="og:image" content="/images/product-preview.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
 
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Air Compressor Guide for Dry Ice Blasting | Aiolith">
-    <meta name="twitter:description" content="A detailed guide to selecting the right air compressor for your dry ice blasting machine. Understand PSI, CFM, and explore our interactive calculator to find the perfect match.">
-    <meta name="twitter:image" content="/images/product-preview.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Air Compressor Guide for Dry Ice Blasting | Aiolith">
+  <meta name="twitter:description" content="A detailed guide to selecting the right air compressor for your dry ice blasting machine. Understand PSI, CFM, and explore our interactive calculator to find the perfect match.">
+  <meta name="twitter:image" content="/images/product-preview.jpg">
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
@@ -91,7 +91,7 @@
             padding: 0 32px;
             height: 80px;
         }
-        .logo { font-size: 21px; font-weight: 600; color: var(--primary-text);}
+        .logo { font-size: 21px; font-weight: 600; color: var(--primary-text); }
         .nav-link {
             background-color: var(--accent-color);
             color: white;
@@ -259,7 +259,6 @@
             padding: 40px;
             border-radius: 24px;
             box-shadow: 0 16px 64px rgba(0, 0, 0, 0.08);
-            min-height: 500px;
         }
 
         /* Compressor Types Grid */
@@ -305,7 +304,7 @@
         @media (max-width: 992px) {
             .grid-2-col, .types-grid { grid-template-columns: 1fr; }
             .image-content { margin-top: 40px; }
-            .recommendation-grid { 
+            .recommendation-grid {
                 grid-template-columns: repeat(2, 1fr);
                 row-gap: 30px;
             }
@@ -317,12 +316,9 @@
             .calculator-wrapper { padding: 30px; }
             .metric-value { font-size: 48px; }
             .metric-label { font-size: 20px; }
-             .chart-container {
-                padding: 20px;
-            }
         }
          @media (max-width: 576px) {
-            .recommendation-grid { 
+            .recommendation-grid {
                 grid-template-columns: 1fr;
             }
          }
@@ -332,8 +328,8 @@
 
     <nav class="navbar">
         <div class="nav-container">
-            <div class="logo">AIR COMPRESSOR GUIDE</div>
-            <a href="/index.html" class="nav-link">More</a>
+            <h1 class="logo">AIR COMPRESSOR GUIDE</h1>
+            <a href="/index.html" class="nav-link">Back to Main Site</a>
         </div>
     </nav>
 
@@ -428,7 +424,7 @@
                     </div>
                     <div style="text-align: center;">
                         <p class="recommendation-note" id="rec-note">This is a general recommendation. Always consult your blaster's manual for precise requirements.</p>
-                        <a href="mailto:sales@aiolith.com" class="btn-engineer">Ask an engineer</a>
+                        <a href="mailto:sales@aiolith.com" class="btn-engineer">Let an engineer provide for you</a>
                     </div>
                 </div>
             </div>
@@ -565,47 +561,64 @@
 
             // --- Chart.js Data Visualization ---
             const ctx = document.getElementById('cfm-chart').getContext('2d');
-            
-            new Chart(ctx, {
-                type: 'bar',
-                data: {
-                    labels: ['Electronics Cleaning', 'Auto Detailing', 'Mold Remediation', 'Food Processing', 'Paint Stripping', 'Heavy Industrial Grease'],
-                    datasets: [{
-                        label: 'Recommended Minimum CFM',
-                        data: [80, 150, 180, 200, 300, 450],
-                        backgroundColor: 'rgba(120, 26, 33, 0.8)',
-                        borderColor: 'rgba(120, 26, 33, 1)',
-                        borderWidth: 1
-                    }]
-                },
-                options: {
-                    indexAxis: 'y',
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: {
-                        title: {
-                            display: true,
-                            text: 'Air Volume (CFM) by Cleaning Application',
-                            font: { size: 18, family: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif' }
-                        },
-                        legend: { display: false }
+            let cfmChart;
+
+            function createOrUpdateChart() {
+                if (cfmChart) {
+                    cfmChart.destroy();
+                }
+
+                const isMobile = window.innerWidth < 768;
+                const chartType = 'bar';
+                const indexAxis = isMobile ? 'y' : 'x';
+                const yAxisTitle = isMobile ? 'Application' : 'CFM';
+                const xAxisTitle = isMobile ? 'Cubic Feet per Minute (CFM)' : 'Application';
+
+                cfmChart = new Chart(ctx, {
+                    type: chartType,
+                    data: {
+                        labels: ['Electronics Cleaning', 'Auto Detailing', 'Mold Remediation', 'Food Processing', 'Paint Stripping', 'Heavy Industrial Grease'],
+                        datasets: [{
+                            label: 'Recommended Minimum CFM',
+                            data: [80, 150, 180, 200, 300, 450],
+                            backgroundColor: 'rgba(120, 26, 33, 0.8)',
+                            borderColor: 'rgba(120, 26, 33, 1)',
+                            borderWidth: 1
+                        }]
                     },
-                    scales: {
-                        y: {
-                            beginAtZero: true,
+                    options: {
+                        indexAxis: indexAxis,
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
                             title: {
-                                display: false,
-                            }
-                        },
-                        x: {
-                           title: {
                                 display: true,
-                                text: 'Cubic Feet per Minute (CFM)'
-                           }
+                                text: 'Air Volume (CFM) by Cleaning Application',
+                                font: { size: 18, family: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif' }
+                            },
+                            legend: { display: false }
+                        },
+                        scales: {
+                            y: {
+                                beginAtZero: true,
+                                title: {
+                                    display: true,
+                                    text: yAxisTitle
+                                }
+                            },
+                            x: {
+                               title: {
+                                    display: true,
+                                    text: xAxisTitle
+                               }
+                            }
                         }
                     }
-                }
-            });
+                });
+            }
+
+            createOrUpdateChart();
+            window.addEventListener('resize', createOrUpdateChart);
 
             // --- Intersection Observer for Fade-in Animations ---
             const observer = new IntersectionObserver((entries) => {
