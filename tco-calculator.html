@@ -40,7 +40,8 @@
             margin: 0 auto;
             padding: 0 20px;
             display: flex;
-            justify-content: flex-start;
+            /* 修改: 使用 space-between 将子元素推向两端 */
+            justify-content: space-between;
             align-items: center;
         }
 
@@ -58,6 +59,35 @@
         .home-button:hover {
             background-color: #303f9f;
         }
+
+        /* 新增: 分享按钮样式 */
+        .share-button {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background-color: #fff;
+            color: #333;
+            padding: 7px 15px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            font-family: inherit;
+            font-weight: bold;
+            font-size: 0.9em;
+            cursor: pointer;
+            transition: background-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .share-button:hover {
+            background-color: #f5f5f5;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+        
+        .share-button svg {
+            width: 18px;
+            height: 18px;
+            fill: #333;
+        }
+        /* -- 新增样式结束 -- */
 
         /* Main content wrapper */
         .main-content {
@@ -95,7 +125,7 @@
 
         /* Results display area styles */
         #results { margin-top: 30px; padding: 20px; background-color: #e8eaf6; border-radius: 8px; border-left: 5px solid #3f51b5; display: none; }
-        .result-section { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; padding: 15px; margin: 10px 0; border-radius: 5px; } /* 修改: 允许换行 */
+        .result-section { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; padding: 15px; margin: 10px 0; border-radius: 5px; }
         .professional-cost { background-color: #fff3e0; }
         .diy-cost { background-color: #e0f2f1; }
         .cost-title { font-weight: bold; font-size: 1.1em; }
@@ -107,8 +137,6 @@
         #recommendation-box p { font-size: 1.1em; color: #2e7d32; margin-top: 0; }
         .view-product-btn { display: inline-block; margin-top: 15px; padding: 10px 25px; font-size: 1em; font-weight: bold; color: #fff; background-color: #43a047; border-radius: 5px; text-decoration: none; transition: background-color 0.3s ease; }
         .view-product-btn:hover { background-color: #388e3c; }
-
-        /* 移除了 .chart-container 样式 */
 
         /* 成本构成明细样式 */
         .cost-breakdown {
@@ -136,6 +164,11 @@
 <header class="main-header">
     <div class="nav-container">
         <a href="https://www.dry-ice-blasting-machine.com" class="home-button">Back to Home</a>
+        
+        <button id="share-button" class="share-button" onclick="sharePage()">
+            <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24"><path d="M720-80q-50 0-85-35t-35-85q0-7 1-14.5t3-13.5L332-392q-17 15-38 23.5t-44 8.5q-50 0-85-35t-35-85q0-50 35-85t85-35q23 0 44 8.5t38 23.5l272-164q-2-6-3-13.5t-1-14.5q0-50 35-85t85-35q50 0 85 35t35 85q0 50-35 85t-85 35q-23 0-44-8.5T638-672L366-508q2 6 3 13.5t1 14.5q0 7-1 14.5t-3 13.5l272 164q17-15 38-23.5t44-8.5q50 0 85 35t35 85q0 50-35 85t-85 35Z"/></svg>
+            <span>Share</span>
+        </button>
     </div>
 </header>
 
@@ -220,7 +253,41 @@
         compressorCostValue.textContent = formatter.format(compressorCostSlider.value);
     });
 
-    // 移除了 costChart 变量声明
+    /**
+     * 新增: 页面分享功能
+     * 优先使用 Web Share API，如果不支持则回退到复制链接到剪贴板。
+     */
+    function sharePage() {
+        const shareButton = document.getElementById('share-button');
+        const originalButtonContent = shareButton.innerHTML;
+        const shareData = {
+            title: 'Dry Ice Blasting TCO Calculator',
+            text: 'I used this calculator to compare the costs of dry ice blasting. Check it out!',
+            url: window.location.href
+        };
+
+        // 检查浏览器是否支持 Web Share API
+        if (navigator.share) {
+            navigator.share(shareData)
+                .then(() => console.log('Successfully shared.'))
+                .catch((error) => console.log('Error sharing:', error));
+        } else {
+            // 不支持 Web Share API -> 回退到复制链接
+            navigator.clipboard.writeText(window.location.href).then(() => {
+                // 复制成功后，给用户反馈
+                shareButton.innerHTML = 'Link Copied!';
+                shareButton.disabled = true;
+                setTimeout(() => {
+                    shareButton.innerHTML = originalButtonContent;
+                    shareButton.disabled = false;
+                }, 2000); // 2秒后恢复按钮
+            }).catch(err => {
+                console.error('Failed to copy link: ', err);
+                alert('Failed to copy link. Please copy it manually.');
+            });
+        }
+    }
+
 
     function calculateTCO() {
         // Get user inputs
@@ -284,8 +351,6 @@
             recommendationBox.style.display = 'none';
         }
         summaryDiv.innerHTML = summaryText + "<br><small>Note: This calculation does not factor in personnel training, storage, or time costs. The long-term benefits of the DIY option may be greater.</small>";
-
-        // 移除了整个 BI Chart Visualization 部分的代码
     }
 </script>
 
