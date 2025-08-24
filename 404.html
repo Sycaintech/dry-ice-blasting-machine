@@ -71,7 +71,7 @@
             font-weight: 600;
             color: white;
             letter-spacing: -0.02em;
-            z-index: 5001;
+            z-index: 5001;	
             text-decoration: none;
         }
 
@@ -79,11 +79,6 @@
             display: flex;
             align-items: center;
             gap: 32px;
-        }
-
-        /* Hide nav-links on desktop */
-        .nav-links {
-            display: none;
         }
 
         .nav-cta-btn {
@@ -101,85 +96,7 @@
             background-color: #fff;
             transform: scale(1.05);
         }
-
-        .hamburger-menu {
-            display: none;
-            flex-direction: column;
-            justify-content: space-around;
-            width: 24px;
-            height: 24px;
-            cursor: pointer;
-            z-index: 5001;
-        }
-        .hamburger-menu span {
-            width: 100%;
-            height: 2px;
-            background-color:white;
-            border-radius: 2px;
-            transition: all 0.3s ease-in-out;
-        }
-        .hamburger-menu.active span:nth-child(1) {
-            transform: translateY(7px) rotate(45deg);
-        }
-        .hamburger-menu.active span:nth-child(2) {
-            opacity: 0;
-        }
-        .hamburger-menu.active span:nth-child(3) {
-            transform: translateY(-7px) rotate(-45deg);
-        }
-
-        .mobile-nav-panel {
-            position: fixed;
-            top: 0;
-            left: -100%;
-            width: 80%;
-            max-width: 300px;
-            height: 100vh;
-            background: black;
-            z-index: 5000;
-            transition: left 0.4s ease-in-out;
-            padding: 80px 30px;
-            box-shadow: 0 0 20px rgba(0,0,0,0.1);
-        }
-        .mobile-nav-panel.active {
-            left: 0;
-        }
-        .mobile-nav-panel ul {
-            list-style: none;
-        }
-        .mobile-nav-panel li {
-            margin-bottom: 24px;
-        }
-        .mobile-nav-panel a {
-            text-decoration: none;
-            color: white;
-            font-size: 20px;
-            font-weight: 600;
-        }
-        .mobile-nav-panel .nav-cta-btn {
-            color: black;
-            width: 100%;
-            text-align: center;
-            display: inline-block;
-        }
-        .mobile-nav-panel .nav-cta-btn:hover {
-            color: black;
-        }
-
-        #nav-overlay {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0,0,0,0.4);
-            z-index: 4999;
-        }
-        #nav-overlay.active {
-            display: block;
-        }
-
+        
         /* Button Styles */
         .btn-dark {
             background: var(--primary-text);
@@ -199,7 +116,7 @@
             border-color: #000;
             transform: translateY(-2px);
         }
-
+        
         /* Footer Styles */
         footer {
             background: #000000;
@@ -305,23 +222,16 @@
         }
 
         /* Responsive adjustments */
-        @media (max-width: 1024px) {
-            .nav-right {
-                display: block; /* Show nav-right to contain the button */
-            }
-            .hamburger-menu {
-                display: flex;
-            }
-        }
         @media (max-width: 768px) {
-            .nav-right {
-                display: none; /* Hide button on mobile, only hamburger shows */
+            .nav-container {
+                padding: 0 20px;
             }
             .footer-bottom-container {
                 flex-direction: column;
                 gap: 20px;
             }
         }
+
     </style>
 </head>
 <body>
@@ -331,21 +241,8 @@
           <div class="nav-right">
               <a href="mailto:sales@aiolith.com" class="nav-cta-btn">Get Discount</a>
           </div>
-            <div class="hamburger-menu">
-                <span></span>
-                <span></span>
-                <span></span>
-            </div>
         </div>
     </nav>
-
-    <div id="nav-overlay"></div>
-    <div id="mobile-nav" class="mobile-nav-panel">
-        <ul>
-            <li><a href="/">Homepage</a></li>
-            <li><a href="mailto:sales@aiolith.com" class="nav-cta-btn">Get Discount</a></li>
-        </ul>
-    </div>
 
     <main>
         <section class="error-section">
@@ -386,32 +283,5 @@
         </div>
     </footer>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            // Mobile Navigation Toggle
-            const hamburger = document.querySelector('.hamburger-menu');
-            const mobileNav = document.getElementById('mobile-nav');
-            const navOverlay = document.getElementById('nav-overlay');
-            const mobileLinks = document.querySelectorAll('#mobile-nav a');
-
-            function toggleMenu() {
-                hamburger.classList.toggle('active');
-                mobileNav.classList.toggle('active');
-                navOverlay.classList.toggle('active');
-            }
-
-            hamburger.addEventListener('click', toggleMenu);
-            navOverlay.addEventListener('click', toggleMenu);
-
-            mobileLinks.forEach(link => {
-                link.addEventListener('click', () => {
-                    // Only close menu if it's active. Let the browser handle navigation.
-                    if (mobileNav.classList.contains('active')) {
-                        toggleMenu();
-                    }
-                });
-            });
-        });
-    </script>
 </body>
 </html>
