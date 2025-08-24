@@ -220,6 +220,12 @@
             margin: 0 auto 48px auto;
             line-height: 1.6;
         }
+        /* Style for the new redirect message */
+        .redirect-message {
+            margin-top: 24px;
+            font-size: 16px;
+            color: var(--secondary-text);
+        }
 
         /* Responsive adjustments */
         @media (max-width: 768px) {
@@ -254,6 +260,7 @@
                     Let's get your operations back on track.
                 </p>
                 <a href="/" class="btn-dark">Return to Homepage</a>
+                <p class="redirect-message">You will be redirected to the homepage in 3 seconds...</p>
             </div>
         </section>
     </main>
@@ -282,6 +289,12 @@
             </div>
         </div>
     </footer>
+
+    <script>
+        setTimeout(function() {
+            window.location.href = '/index.html';
+        }, 3000); // 3000 milliseconds = 3 seconds
+    </script>
 
 </body>
 </html>
