@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dry Ice Blasting Total Cost of Ownership (TCO) Calculator</title>
-    
+
     <link rel="icon" href="favicon.png" type="image/png">
     <link rel="apple-touch-icon" href="favicon.png">
     <meta name="description" content="Discover our professional AI30 Dry Ice Blasting Machine. It provides an efficient, eco-friendly, and residue-free cleaning solution for automotive, food processing, and manufacturing industries. Buy it Now.">
@@ -22,11 +22,13 @@
     <meta name="twitter:title" content="Dry Ice Blasting Cost Calculator">
     <meta name="twitter:description" content="Which is more cost-effective: purchasing your own dry ice blaster or hiring a professional? Use our free calculator to compare the total cost of ownership and make an informed decision.">
     <meta name="twitter:image" content="https://www.dry-ice-blasting-machine.com/images/dry-ice-blaster-TCO.webp">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+
     <style>
-        /* Smooth scroll effect for the page */
         html { scroll-behavior: smooth; }
 
-        /* General page styles */
         body {
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
             line-height: 1.6;
@@ -36,7 +38,6 @@
             background-color: #f9f9f9;
         }
 
-        /* Header and Navigation Styles */
         .main-header {
             background-color: #f9f9f9;
             padding: 15px 0;
@@ -52,7 +53,6 @@
             margin: 0 auto;
             padding: 0 20px;
             display: flex;
-            /* 修改: 使用 space-between 将子元素推向两端 */
             justify-content: space-between;
             align-items: center;
         }
@@ -72,7 +72,6 @@
             background-color: #303f9f;
         }
 
-        /* 新增: 分享按钮样式 */
         .share-button {
             display: flex;
             align-items: center;
@@ -93,22 +92,19 @@
             background-color: #f5f5f5;
             box-shadow: 0 1px 3px rgba(0,0,0,0.1);
         }
-        
+
         .share-button svg {
             width: 18px;
             height: 18px;
             fill: #333;
         }
-        /* -- 新增样式结束 -- */
 
-        /* Main content wrapper */
         .main-content {
             max-width: 900px;
             margin: 20px auto;
             padding: 0 20px;
         }
 
-        /* Main container styles */
         .container {
             background-color: #fff;
             padding: 25px;
@@ -117,11 +113,9 @@
             margin-bottom: 30px;
         }
 
-        /* Header styles */
         h1, h2, h3 { color: #1a237e; border-bottom: 2px solid #3f51b5; padding-bottom: 10px; text-align: center; }
         h3 { border-bottom: none; text-align: left; }
 
-        /* Form and input area styles */
         .calculator-form { display: grid; grid-template-columns: 1fr 1fr; gap: 20px 40px; margin-top: 20px; }
         .input-group { display: flex; flex-direction: column; }
         .fixed-cost-display { background-color: #f5f5f5; padding: 10px; border-radius: 5px; border: 1px solid #e0e0e0; }
@@ -131,11 +125,9 @@
         .range-container { display: flex; align-items: center; gap: 10px; }
         .range-value { font-weight: bold; color: #3f51b5; min-width: 70px; text-align: right; }
 
-        /* Button styles */
         .calculate-btn { grid-column: 1 / -1; padding: 12px 20px; font-size: 1.1em; font-weight: bold; color: #fff; background-color: #3f51b5; border: none; border-radius: 5px; cursor: pointer; transition: background-color 0.3s ease; margin-top: 20px; }
         .calculate-btn:hover { background-color: #303f9f; }
 
-        /* Results display area styles */
         #results { margin-top: 30px; padding: 20px; background-color: #e8eaf6; border-radius: 8px; border-left: 5px solid #3f51b5; display: none; }
         .result-section { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; padding: 15px; margin: 10px 0; border-radius: 5px; }
         .professional-cost { background-color: #fff3e0; }
@@ -150,7 +142,6 @@
         .view-product-btn { display: inline-block; margin-top: 15px; padding: 10px 25px; font-size: 1em; font-weight: bold; color: #fff; background-color: #43a047; border-radius: 5px; text-decoration: none; transition: background-color 0.3s ease; }
         .view-product-btn:hover { background-color: #388e3c; }
 
-        /* 成本构成明细样式 */
         .cost-breakdown {
             width: 100%;
             margin-top: 15px;
@@ -167,8 +158,65 @@
             font-weight: bold;
         }
 
-        /* Responsive design for smaller screens */
-        @media (max-width: 600px) { .calculator-form { grid-template-columns: 1fr; } }
+        .results-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .results-header h2 {
+            flex-grow: 1;
+            margin: 0;
+        }
+
+        .save-pdf-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 10px 18px;
+            font-size: 1em;
+            font-weight: bold;
+            color: #fff;
+            background-color: #00796b;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, box-shadow 0.3s ease;
+            margin-left: 20px;
+            animation: pulse-glow 2s infinite;
+        }
+
+        .save-pdf-btn:hover {
+            background-color: #004d40;
+            animation: none;
+        }
+
+        .save-pdf-btn svg {
+            width: 20px;
+            height: 20px;
+            fill: #fff;
+        }
+
+        @keyframes pulse-glow {
+            0% {
+                box-shadow: 0 0 0 0 rgba(0, 121, 107, 0.7);
+            }
+            70% {
+                box-shadow: 0 0 0 10px rgba(0, 121, 107, 0);
+            }
+            100% {
+                box-shadow: 0 0 0 0 rgba(0, 121, 107, 0);
+            }
+        }
+
+        @media (max-width: 600px) {
+            .calculator-form { grid-template-columns: 1fr; }
+            .results-header { flex-direction: column; align-items: stretch; }
+            .results-header h2 { text-align: center; margin-bottom: 15px; }
+            .save-pdf-btn { margin-left: 0; text-align: center; }
+        }
     </style>
 </head>
 <body>
@@ -176,7 +224,7 @@
 <header class="main-header">
     <div class="nav-container">
         <a href="https://www.dry-ice-blasting-machine.com" class="home-button">Back to Home</a>
-        
+
         <button id="share-button" class="share-button" onclick="sharePage()">
             <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24"><path d="M720-80q-50 0-85-35t-35-85q0-7 1-14.5t3-13.5L332-392q-17 15-38 23.5t-44 8.5q-50 0-85-35t-35-85q0-50 35-85t85-35q23 0 44 8.5t38 23.5l272-164q-2-6-3-13.5t-1-14.5q0-50 35-85t85-35q50 0 85 35t35 85q0 50-35 85t-85 35q-23 0-44-8.5T638-672L366-508q2 6 3 13.5t1 14.5q0 7-1 14.5t-3 13.5l272 164q17-15 38-23.5t44-8.5q50 0 85 35t35 85q0 50-35 85t-85 35Z"/></svg>
             <span>Share</span>
@@ -229,7 +277,16 @@
         </form>
 
         <div id="results">
-            <h2>Cost Analysis Results</h2>
+            <div class="results-header">
+                <h2>Cost Analysis Results</h2>
+                <button id="save-pdf-btn" class="save-pdf-btn" onclick="saveAsPDF()">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd" d="M3.5 10a.5.5 0 0 1-.5-.5v-8a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 .5.5v8a.5.5 0 0 1-.5-.5h-2a.5.5 0 0 0 0 1h2A1.5 1.5 0 0 0 14 9.5v-8A1.5 1.5 0 0 0 12.5 0h-9A1.5 1.5 0 0 0 2 1.5v8A1.5 1.5 0 0 0 3.5 11h2a.5.5 0 0 0 0-1h-2Z"/>
+                        <path fill-rule="evenodd" d="M7.646 15.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 14.293V5.5a.5.5 0 0 0-1 0v8.793l-2.146-2.147a.5.5 0 0 0-.708.708l3 3Z"/>
+                    </svg>
+                    <span>Save Results as PDF</span>
+                </button>
+            </div>
             <div class="result-section professional-cost">
                 <span class="cost-title">Hiring Professionals: Annual Total Cost</span>
                 <span class="cost-value" id="professionalTotalCost"></span>
@@ -251,12 +308,10 @@
 </div>
 
 <script>
-    // Helper to format numbers as USD currency
     const formatter = new Intl.NumberFormat('en-US', {
         style: 'currency', currency: 'USD', minimumFractionDigits: 0, maximumFractionDigits: 0,
     });
 
-    // JS for the compressor cost slider
     const compressorCostSlider = document.getElementById('compressorCost');
     const compressorCostValue = document.getElementById('compressorCostValue');
     compressorCostSlider.oninput = function() { compressorCostValue.textContent = formatter.format(this.value); }
@@ -265,10 +320,6 @@
         compressorCostValue.textContent = formatter.format(compressorCostSlider.value);
     });
 
-    /**
-     * 新增: 页面分享功能
-     * 优先使用 Web Share API，如果不支持则回退到复制链接到剪贴板。
-     */
     function sharePage() {
         const shareButton = document.getElementById('share-button');
         const originalButtonContent = shareButton.innerHTML;
@@ -278,21 +329,18 @@
             url: window.location.href
         };
 
-        // 检查浏览器是否支持 Web Share API
         if (navigator.share) {
             navigator.share(shareData)
                 .then(() => console.log('Successfully shared.'))
                 .catch((error) => console.log('Error sharing:', error));
         } else {
-            // 不支持 Web Share API -> 回退到复制链接
             navigator.clipboard.writeText(window.location.href).then(() => {
-                // 复制成功后，给用户反馈
                 shareButton.innerHTML = 'Link Copied!';
                 shareButton.disabled = true;
                 setTimeout(() => {
                     shareButton.innerHTML = originalButtonContent;
                     shareButton.disabled = false;
-                }, 2000); // 2秒后恢复按钮
+                }, 2000);
             }).catch(err => {
                 console.error('Failed to copy link: ', err);
                 alert('Failed to copy link. Please copy it manually.');
@@ -300,21 +348,91 @@
         }
     }
 
+    function saveAsPDF() {
+        const resultsElement = document.getElementById('results');
+        const saveButton = document.getElementById('save-pdf-btn');
+        const originalButtonContent = saveButton.innerHTML;
+
+        saveButton.innerHTML = '<span>Generating...</span>';
+        saveButton.style.animation = 'none';
+        saveButton.disabled = true;
+
+        html2canvas(resultsElement, {
+            scale: 2,
+            useCORS: true,
+            onclone: (document) => {
+                document.getElementById('save-pdf-btn').style.display = 'none';
+            }
+        }).then(canvas => {
+            const imgData = canvas.toDataURL('image/png');
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF({
+                orientation: 'portrait',
+                unit: 'mm',
+                format: 'a4'
+            });
+
+            const pdfWidth = doc.internal.pageSize.getWidth();
+            const pdfHeight = doc.internal.pageSize.getHeight();
+            const canvasWidth = canvas.width;
+            const canvasHeight = canvas.height;
+            const ratio = canvasWidth / canvasHeight;
+
+            let imgWidth = pdfWidth - 20;
+            let imgHeight = imgWidth / ratio;
+
+            if (imgHeight > pdfHeight - 20) {
+                imgHeight = pdfHeight - 20;
+                imgWidth = imgHeight * ratio;
+            }
+
+            const x = (pdfWidth - imgWidth) / 2;
+            const y = 10;
+
+            doc.addImage(imgData, 'PNG', x, y, imgWidth, imgHeight);
+
+            // START: Add source text to bottom-left
+            const sourceText = "Source: https://www.dry-ice-blasting-machine.com/tco-calculator";
+            const leftMargin = 10;
+            const bottomMargin = 10;
+
+            doc.setFontSize(9);
+            doc.setTextColor("#555555");
+            doc.setFont("helvetica", "normal");
+
+            const textX = leftMargin;
+            const textY = pdfHeight - bottomMargin;
+
+            doc.text(sourceText, textX, textY);
+            // END: Add source text to bottom-left
+
+            doc.save('Dry-Ice-Blasting-TCO-Analysis.pdf');
+
+            saveButton.innerHTML = originalButtonContent;
+            saveButton.style.animation = '';
+            saveButton.disabled = false;
+
+        }).catch(err => {
+            console.error("PDF generation failed:", err);
+            alert("Sorry, there was an error creating the PDF.");
+            saveButton.innerHTML = originalButtonContent;
+            saveButton.style.animation = '';
+            saveButton.disabled = false;
+        });
+    }
+
 
     function calculateTCO() {
-        // Get user inputs
         const hoursPerJob = parseFloat(document.getElementById('hoursPerJob').value);
         const jobsPerYear = parseFloat(document.getElementById('jobsPerYear').value);
         const compressorCost = parseFloat(document.getElementById('compressorCost').value);
         const dryIceCostPerPound = parseFloat(document.getElementById('dryIceCost').value);
         const maintenanceCost = parseFloat(document.getElementById('maintenanceCost').value);
 
-        // Fixed costs and rates
         const machineCost = 3099;
         const professionalHourlyRate = 395;
         const dryIceConsumptionPerMinute = 0.66;
 
-        // Calculations
         const totalHoursPerYear = hoursPerJob * jobsPerYear;
         const professionalTotalCost = totalHoursPerYear * professionalHourlyRate;
 
@@ -325,12 +443,10 @@
         const annualOperationalCost = annualDryIceCost + maintenanceCost;
         const diyTotalCost = upfrontCost + annualOperationalCost;
 
-        // Display main results
         document.getElementById('professionalTotalCost').textContent = formatter.format(professionalTotalCost);
         document.getElementById('diyTotalCost').textContent = formatter.format(diyTotalCost);
         document.getElementById('results').style.display = 'block';
 
-        // --- 填充成本构成明细 ---
         const professionalBreakdownDiv = document.getElementById('professionalBreakdown');
         professionalBreakdownDiv.innerHTML = `
             <p><span>Annual Service Hours:</span> <span>${totalHoursPerYear.toLocaleString()} hrs</span></p>
@@ -347,7 +463,6 @@
             <p style="padding-left: 15px; font-size: 0.95em;"><span>└ Maintenance etc.:</span> <span>${formatter.format(maintenanceCost)}</span></p>
         `;
 
-        // Summary and recommendation
         const summaryDiv = document.getElementById('summary');
         const recommendationBox = document.getElementById('recommendation-box');
         let summaryText = '';
