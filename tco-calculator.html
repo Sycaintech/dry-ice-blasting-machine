@@ -273,6 +273,26 @@
                 </div>
             </div>
 
+            <h2>Step 3: Adjust Professional Service Costs (Optional)</h2>
+            <div class="calculator-form">
+                <div class="input-group">
+                    <label for="profLaborCost">Labor & Staffing ($/hr)</label>
+                    <input type="number" id="profLaborCost" value="150" min="0">
+                </div>
+                <div class="input-group">
+                    <label for="profEquipmentCost">Equipment & Consumables ($/hr)</label>
+                    <input type="number" id="profEquipmentCost" value="150" min="0">
+                </div>
+                <div class="input-group">
+                    <label for="profOverheadCost">Overhead & Profit ($/hr)</label>
+                    <input type="number" id="profOverheadCost" value="95" min="0">
+                </div>
+                <div class="input-group fixed-cost-display">
+                    <label>Total Professional Hourly Rate</label>
+                    <div class="cost-value" id="totalProfRateDisplay"></div>
+                </div>
+            </div>
+
             <button type="button" class="calculate-btn" onclick="calculateTCO()">Calculate Annual Total Cost</button>
         </form>
 
@@ -312,15 +332,38 @@
         style: 'currency', currency: 'USD', minimumFractionDigits: 0, maximumFractionDigits: 0,
     });
 
-    const compressorCostSlider = document.getElementById('compressorCost');
-    const compressorCostValue = document.getElementById('compressorCostValue');
-    compressorCostSlider.oninput = function() { compressorCostValue.textContent = formatter.format(this.value); }
-
+    // Event listeners for sliders and inputs
     document.addEventListener('DOMContentLoaded', () => {
+        const compressorCostSlider = document.getElementById('compressorCost');
+        const compressorCostValue = document.getElementById('compressorCostValue');
+        compressorCostSlider.oninput = function() { compressorCostValue.textContent = formatter.format(this.value); }
         compressorCostValue.textContent = formatter.format(compressorCostSlider.value);
+
+        // Get new professional cost inputs
+        const profLaborInput = document.getElementById('profLaborCost');
+        const profEquipmentInput = document.getElementById('profEquipmentCost');
+        const profOverheadInput = document.getElementById('profOverheadCost');
+        const totalProfRateDisplay = document.getElementById('totalProfRateDisplay');
+
+        function updateProfRateTotal() {
+            const labor = parseFloat(profLaborInput.value) || 0;
+            const equipment = parseFloat(profEquipmentInput.value) || 0;
+            const overhead = parseFloat(profOverheadInput.value) || 0;
+            const total = labor + equipment + overhead;
+            totalProfRateDisplay.textContent = formatter.format(total);
+        }
+
+        // Attach event listeners
+        profLaborInput.addEventListener('input', updateProfRateTotal);
+        profEquipmentInput.addEventListener('input', updateProfRateTotal);
+        profOverheadInput.addEventListener('input', updateProfRateTotal);
+
+        // Initial calculation on page load
+        updateProfRateTotal();
     });
 
     function sharePage() {
+        // Share functionality remains the same
         const shareButton = document.getElementById('share-button');
         const originalButtonContent = shareButton.innerHTML;
         const shareData = {
@@ -330,9 +373,7 @@
         };
 
         if (navigator.share) {
-            navigator.share(shareData)
-                .then(() => console.log('Successfully shared.'))
-                .catch((error) => console.log('Error sharing:', error));
+            navigator.share(shareData).catch((error) => console.log('Error sharing:', error));
         } else {
             navigator.clipboard.writeText(window.location.href).then(() => {
                 shareButton.innerHTML = 'Link Copied!';
@@ -341,101 +382,75 @@
                     shareButton.innerHTML = originalButtonContent;
                     shareButton.disabled = false;
                 }, 2000);
-            }).catch(err => {
-                console.error('Failed to copy link: ', err);
-                alert('Failed to copy link. Please copy it manually.');
-            });
+            }).catch(err => console.error('Failed to copy link: ', err));
         }
     }
 
     function saveAsPDF() {
+        // PDF generation functionality remains the same
         const resultsElement = document.getElementById('results');
         const saveButton = document.getElementById('save-pdf-btn');
         const originalButtonContent = saveButton.innerHTML;
 
         saveButton.innerHTML = '<span>Generating...</span>';
-        saveButton.style.animation = 'none';
         saveButton.disabled = true;
 
         html2canvas(resultsElement, {
             scale: 2,
             useCORS: true,
-            onclone: (document) => {
-                document.getElementById('save-pdf-btn').style.display = 'none';
-            }
+            onclone: (doc) => { doc.getElementById('save-pdf-btn').style.display = 'none'; }
         }).then(canvas => {
             const imgData = canvas.toDataURL('image/png');
             const { jsPDF } = window.jspdf;
-            const doc = new jsPDF({
-                orientation: 'portrait',
-                unit: 'mm',
-                format: 'a4'
-            });
-
+            const doc = new jsPDF({ orientation: 'portrait', unit: 'mm', format: 'a4' });
             const pdfWidth = doc.internal.pageSize.getWidth();
             const pdfHeight = doc.internal.pageSize.getHeight();
-            const canvasWidth = canvas.width;
-            const canvasHeight = canvas.height;
-            const ratio = canvasWidth / canvasHeight;
-
+            const ratio = canvas.width / canvas.height;
             let imgWidth = pdfWidth - 20;
             let imgHeight = imgWidth / ratio;
-
             if (imgHeight > pdfHeight - 20) {
                 imgHeight = pdfHeight - 20;
                 imgWidth = imgHeight * ratio;
             }
-
             const x = (pdfWidth - imgWidth) / 2;
-            const y = 10;
-
-            doc.addImage(imgData, 'PNG', x, y, imgWidth, imgHeight);
-
-            // START: Add source text to bottom-left
-            const sourceText = "Source: https://www.dry-ice-blasting-machine.com/tco-calculator";
-            const leftMargin = 10;
-            const bottomMargin = 10;
-
+            doc.addImage(imgData, 'PNG', x, 10, imgWidth, imgHeight);
             doc.setFontSize(9);
             doc.setTextColor("#555555");
-            doc.setFont("helvetica", "normal");
-
-            const textX = leftMargin;
-            const textY = pdfHeight - bottomMargin;
-
-            doc.text(sourceText, textX, textY);
-            // END: Add source text to bottom-left
-
+            doc.text("Source: https://www.dry-ice-blasting-machine.com/tco-calculator", 10, pdfHeight - 10);
             doc.save('Dry-Ice-Blasting-TCO-Analysis.pdf');
-
-            saveButton.innerHTML = originalButtonContent;
-            saveButton.style.animation = '';
-            saveButton.disabled = false;
-
         }).catch(err => {
             console.error("PDF generation failed:", err);
             alert("Sorry, there was an error creating the PDF.");
+        }).finally(() => {
             saveButton.innerHTML = originalButtonContent;
-            saveButton.style.animation = '';
             saveButton.disabled = false;
         });
     }
 
-
     function calculateTCO() {
-        const hoursPerJob = parseFloat(document.getElementById('hoursPerJob').value);
-        const jobsPerYear = parseFloat(document.getElementById('jobsPerYear').value);
-        const compressorCost = parseFloat(document.getElementById('compressorCost').value);
-        const dryIceCostPerPound = parseFloat(document.getElementById('dryIceCost').value);
-        const maintenanceCost = parseFloat(document.getElementById('maintenanceCost').value);
+        // --- Get User Inputs ---
+        const hoursPerJob = parseFloat(document.getElementById('hoursPerJob').value) || 0;
+        const jobsPerYear = parseFloat(document.getElementById('jobsPerYear').value) || 0;
+        const compressorCost = parseFloat(document.getElementById('compressorCost').value) || 0;
+        const dryIceCostPerPound = parseFloat(document.getElementById('dryIceCost').value) || 0;
+        const maintenanceCost = parseFloat(document.getElementById('maintenanceCost').value) || 0;
 
+        // Get professional rate components from user input
+        const profLaborCost = parseFloat(document.getElementById('profLaborCost').value) || 0;
+        const profEquipmentCost = parseFloat(document.getElementById('profEquipmentCost').value) || 0;
+        const profOverheadCost = parseFloat(document.getElementById('profOverheadCost').value) || 0;
+
+        // --- Constants ---
         const machineCost = 3099;
-        const professionalHourlyRate = 395;
         const dryIceConsumptionPerMinute = 0.66;
 
+        // --- Calculations ---
+        // Professional Cost
+        const professionalHourlyRate = profLaborCost + profEquipmentCost + profOverheadCost;
         const totalHoursPerYear = hoursPerJob * jobsPerYear;
         const professionalTotalCost = totalHoursPerYear * professionalHourlyRate;
 
+        // DIY Cost
         const upfrontCost = machineCost + compressorCost;
         const totalMinutesPerYear = totalHoursPerYear * 60;
         const totalDryIceNeeded = totalMinutesPerYear * dryIceConsumptionPerMinute;
@@ -443,16 +458,23 @@
         const annualOperationalCost = annualDryIceCost + maintenanceCost;
         const diyTotalCost = upfrontCost + annualOperationalCost;
 
+        // --- Display Results ---
+        document.getElementById('results').style.display = 'block';
         document.getElementById('professionalTotalCost').textContent = formatter.format(professionalTotalCost);
         document.getElementById('diyTotalCost').textContent = formatter.format(diyTotalCost);
-        document.getElementById('results').style.display = 'block';
 
+        // Professional Cost Breakdown
         const professionalBreakdownDiv = document.getElementById('professionalBreakdown');
         professionalBreakdownDiv.innerHTML = `
             <p><span>Annual Service Hours:</span> <span>${totalHoursPerYear.toLocaleString()} hrs</span></p>
-            <p><span>Hourly Rate (Estimate):</span> <span>${formatter.format(professionalHourlyRate)} / hr</span></p>
+            <strong>Hourly Rate Breakdown (Estimate):</strong>
+            <p style="padding-left: 15px; font-size: 0.95em;"><span>└ Labor & Staffing:</span> <span>${formatter.format(profLaborCost)} / hr</span></p>
+            <p style="padding-left: 15px; font-size: 0.95em;"><span>└ Equipment & Consumables:</span> <span>${formatter.format(profEquipmentCost)} / hr</span></p>
+            <p style="padding-left: 15px; font-size: 0.95em;"><span>└ Overhead & Profit:</span> <span>${formatter.format(profOverheadCost)} / hr</span></p>
+            <p><span>Total Hourly Rate:</span> <span>${formatter.format(professionalHourlyRate)} / hr</span></p>
         `;
 
+        // DIY Cost Breakdown
         const diyBreakdownDiv = document.getElementById('diyBreakdown');
         diyBreakdownDiv.innerHTML = `
             <strong>First-Year Cost Breakdown:</strong>
@@ -463,6 +485,7 @@
             <p style="padding-left: 15px; font-size: 0.95em;"><span>└ Maintenance etc.:</span> <span>${formatter.format(maintenanceCost)}</span></p>
         `;
 
+        // Summary & Recommendation
         const summaryDiv = document.getElementById('summary');
         const recommendationBox = document.getElementById('recommendation-box');
         let summaryText = '';
