@@ -133,7 +133,7 @@
         .professional-cost { background-color: #fff3e0; }
         .diy-cost { background-color: #e0f2f1; }
         .cost-title { font-weight: bold; font-size: 1.1em; }
-        .cost-value { font-size: 1.2em; font-weight: bold; }
+        .cost-value { font-size: 1.5em; font-weight: bold; }
         #summary { margin-top: 20px; padding: 15px; font-size: 1.2em; text-align: center; border-radius: 5px; }
         .summary-cheaper { background-color: #c8e6c9; color: #1b5e20; }
         .summary-expensive { background-color: #ffcdd2; color: #b71c1c; }
@@ -280,7 +280,7 @@
                     <input type="number" id="profLaborCost" value="150" min="0">
                 </div>
                 <div class="input-group">
-                    <label for="profEquipmentCost">Equip. & Consumables ($/hr)</label>
+                    <label for="profEquipmentCost">Equipment & Consumables ($/hr)</label>
                     <input type="number" id="profEquipmentCost" value="150" min="0">
                 </div>
                 <div class="input-group">
@@ -468,9 +468,9 @@
         professionalBreakdownDiv.innerHTML = `
             <p><span>Annual Service Hours:</span> <span>${totalHoursPerYear.toLocaleString()} hrs</span></p>
             <strong>Hourly Rate Breakdown (Estimate):</strong>
-            <p style="padding-left: 15px; font-size: 0.95em;"><span>└ Labor & Staffing:</span> <span>${formatter.format(profLaborCost)} / hr</span></p>
-            <p style="padding-left: 15px; font-size: 0.95em;"><span>└ Equipment & Consumables:</span> <span>${formatter.format(profEquipmentCost)} / hr</span></p>
-            <p style="padding-left: 15px; font-size: 0.95em;"><span>└ Overhead & Profit:</span> <span>${formatter.format(profOverheadCost)} / hr</span></p>
+            <p style="padding-left: 15px; font-size: 0.9em;"><span>└ Labor & Staffing:</span> <span>${formatter.format(profLaborCost)} / hr</span></p>
+            <p style="padding-left: 15px; font-size: 0.9em;"><span>└ Equipment & Consumables:</span> <span>${formatter.format(profEquipmentCost)} / hr</span></p>
+            <p style="padding-left: 15px; font-size: 0.9em;"><span>└ Overhead & Profit:</span> <span>${formatter.format(profOverheadCost)} / hr</span></p>
             <p><span>Total Hourly Rate:</span> <span>${formatter.format(professionalHourlyRate)} / hr</span></p>
         `;
 
@@ -479,10 +479,10 @@
         diyBreakdownDiv.innerHTML = `
             <strong>First-Year Cost Breakdown:</strong>
             <p><span>Upfront Equipment Cost:</span> <span>${formatter.format(upfrontCost)}</span></p>
-            <p style="padding-left: 15px; font-size: 0.95em;"><span>└ Blaster + Compressor</span></p>
+            <p style="padding-left: 15px; font-size: 0.9em;"><span>└ Blaster + Compressor</span></p>
             <p><span>Annual Operational Cost:</span> <span>${formatter.format(annualOperationalCost)}</span></p>
-            <p style="padding-left: 15px; font-size: 0.95em;"><span>└ Dry Ice Cost:</span> <span>${formatter.format(annualDryIceCost)}</span></p>
-            <p style="padding-left: 15px; font-size: 0.95em;"><span>└ Maintenance etc.:</span> <span>${formatter.format(maintenanceCost)}</span></p>
+            <p style="padding-left: 15px; font-size: 0.9em;"><span>└ Dry Ice Cost:</span> <span>${formatter.format(annualDryIceCost)}</span></p>
+            <p style="padding-left: 15px; font-size: 0.9em;"><span>└ Maintenance etc.:</span> <span>${formatter.format(maintenanceCost)}</span></p>
         `;
 
         // Summary & Recommendation
